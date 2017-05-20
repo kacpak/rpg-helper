@@ -1,2 +1,2 @@
-# rpg-helper
-Dungeons &amp; Dragons Session Helper
+# RPG Helper
+> Dungeons &amp; Dragons Session Helper

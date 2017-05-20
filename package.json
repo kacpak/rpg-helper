@@ -1,0 +1,49 @@
+{
+  "name": "rpg-helper",
+  "version": "0.0.0",
+  "description": "Dungeons & Dragons Session Helper",
+  "repository": "https://github.com/kacpak/rpg-helper.git",
+  "author": "Mateusz Kasprzak <kacpak@gmail.com>",
+  "license": "MIT",
+  "preferGlobal": true,
+  "private": true,
+  "scripts": {
+    "start": "node dist/server.js",
+    "build": "webpack",
+    "dev": "run-p dev:** --print-label --continue-on-error",
+    "dev:build-server": "webpack --watch --env.dev --env.serverOnly",
+    "dev:server": "nodemon dist/server.js --watch dist/server.js"
+  },
+  "bin": {
+    "rpg-helper": "bin/rpg-helper"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "compression": "^1.6.2",
+    "debug": "^2.6.3",
+    "express": "^4.15.2",
+    "express-history-api-fallback": "^2.1.0",
+    "passport": "^0.3.2"
+  },
+  "devDependencies": {
+    "@types/debug": "^0.0.29",
+    "@types/express": "^4.0.35",
+    "@types/node": "^7.0.12",
+    "@types/passport": "^0.3.3",
+    "@types/webpack": "^2.2.14",
+    "nodemon": "^1.11.0",
+    "npm-run-all": "^4.0.2",
+    "ts-loader": "^2.0.3",
+    "tslint": "^5.1.0",
+    "typescript": "^2.2.2",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.2",
+    "webpack-merge": "^4.1.0",
+    "webpack-notifier": "^1.5.0",
+    "webpack2-externals-plugin": "^1.0.0"
+  }
+}

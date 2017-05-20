@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+
+const path = require('path');
+const fs = require('fs');
+const exec = require('child_process').execSync;
+
+try {
+  const installDir = path.resolve(__dirname, '..');
+  const execOptions = {
+    cwd: installDir, stdio: 'inherit'
+  };
+
+  if (!fs.existsSync(path.resolve(installDir, 'node_modules'))) {
+    console.log('Application dependencies not found. Installing dependencies...');
+    exec('yarn install --production');
+  }
+  console.log('Running RPG Helper application...');
+  exec('yarn run start', execOptions);
+
+} catch (e) {
+  // Nothing
+}
