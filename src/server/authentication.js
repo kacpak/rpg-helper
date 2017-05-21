@@ -26,3 +26,8 @@ export const router = express.Router();
 router.post('/login', authenticate(), (req, res) => {
     res.json(req.user);
 });
+
+router.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+});

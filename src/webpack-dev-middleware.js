@@ -8,13 +8,13 @@ const compiler = webpack(webpackConfig);
 export default function(app) {
     app.use(webpackDevMiddleware(compiler, {
         hot: true,
+        reload: true,
         stats: {
             colors: true
         },
         historyApiFallback: true,
         publicPath: webpackConfig.output.publicPath,
-        filename: webpackConfig.output.filename,
-        reload: true
+        index: 'index.html'
     }));
 
     app.use(webpackHotMiddleware(compiler, {

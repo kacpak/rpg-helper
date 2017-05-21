@@ -16,7 +16,8 @@ const baseConfig = {
     },
     output: {
         path: path.resolve(__dirname, 'public'),
-        filename: '[name].js'
+        filename: '[name].js',
+        publicPath: '/',
     },
     module: {
         rules: [
@@ -69,6 +70,11 @@ const baseConfig = {
             filename: 'style.css',
             disable: !isProduction
         }),
+        new webpack.ProvidePlugin({
+            $: 'jquery/dist/jquery.slim.js',
+            jQuery: 'jquery/dist/jquery.slim.js',
+            Tether: 'tether'
+        })
     ]
 };
 
@@ -76,7 +82,7 @@ const devBuild = webpackMerge.smart(baseConfig, {
     entry: {
         app: ['webpack-hot-middleware/client?reload=true']
     },
-    devtool: '#eval-source-map',
+    devtool: '#cheap-module-source-map',
     plugins: [
         new webpack.HotModuleReplacementPlugin()
     ]

@@ -1,11 +1,13 @@
 import './styles/main.scss';
 import 'babel-polyfill';
+import 'bootstrap';
 
 import Vue from 'vue';
 import VueResource from 'vue-resource';
-import socketIo from 'socket.io-client';
 
 import App from './components/App.vue';
+import store from './store';
+import router from './router';
 
 Vue.use(VueResource);
 
@@ -23,8 +25,6 @@ new Vue({
             ]
         );
     },
-    created() {
-        const socket = socketIo();
-        socket.on('connect', () => console.log('Connected', socket.id));
-    }
+    store,
+    router
 });

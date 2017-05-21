@@ -7,7 +7,8 @@ export async function init() {
     const migrationsPath = path.join(paths.root, 'migrations');
 
     console.log('Accessing database...');
-    await db.open(paths.database, { cached: true });
+    const dbPath = path.join(paths.database, 'database.db');
+    await db.open(dbPath, { cached: true });
     console.log('Migrating database...');
     await db.migrate({
         migrationsPath,

@@ -3,41 +3,51 @@ dotenv.config();
 
 import bodyParser from 'body-parser';
 import express from 'express';
+import historyApiFallback from 'express-history-api-fallback';
 import https from 'https';
 import morgan from 'morgan';
 import session from 'express-session';
-import webpackDevMiddlewareInit from './webpack-dev-middleware';
+import ConnectSQLite from 'connect-sqlite3';
+
+import paths from './paths';
 import * as auth from './server/authentication';
 import * as db from './server/db';
 import * as sockets from './server/sockets';
 import { credentials } from './ssl';
-import paths from './paths';
+import webpackDevMiddlewareInit from './webpack-dev-middleware';
 
 const app = express();
-app.use(morgan('short'));
-app.use(bodyParser.json());
-app.use(session({
-    secret: process.env.SECRET,
-    secure: true,
-    resave: false,
-    saveUninitialized: false
-}));
-auth.init(app);
-app.use('/auth', auth.router);
+async function initialize() {
+    await db.init();
 
-if (process.env.NODE_ENV === 'development') {
-    webpackDevMiddlewareInit(app);
-} else {
-    app.use('/', express.static(paths.public));
-}
+    const SQLiteStore = new ConnectSQLite(session);
+    const sessionOptions = {
+        store: new SQLiteStore({dir: paths.database}),
+        key: 'express.sid',
+        secret: process.env.SECRET || 'secret',
+        secure: true,
+        resave: false,
+        saveUninitialized: false
+    };
 
-const httpsServer = https.createServer(credentials, app);
-sockets.init(httpsServer);
+    app.use(morgan('short'));
+    app.use(bodyParser.json());
+    app.use(session(sessionOptions));
 
-Promise.resolve()
-    .then(() => db.init())
-    .catch(err => console.error(err))
-    .then(() => httpsServer.listen(process.env.PORT)
+    auth.init(app);
+    app.use('/auth', auth.router);
+
+    if (process.env.NODE_ENV === 'development') {
+        webpackDevMiddlewareInit(app);
+    } else {
+        app.use('/', express.static(paths.public));
+        app.use(historyApiFallback('index.html', { root: paths.public }));
+    }
+
+    const httpsServer = https.createServer(credentials, app);
+    sockets.init(httpsServer, sessionOptions);
+
+    httpsServer.listen(process.env.PORT)
         .on('error', function (err) {
             if (err.syscall !== 'listen') {
                 throw err;
@@ -63,5 +73,9 @@ Promise.resolve()
             if (process.env.NODE_ENV === 'development') {
                 console.log(`Open up https://localhost:${port}/ in your browser.`);
             }
-        })
-    );
+        });
+}
+
+Promise.resolve()
+    .then(initialize)
+    .catch(e => console.error(e));
