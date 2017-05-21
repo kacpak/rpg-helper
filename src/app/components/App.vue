@@ -1,14 +1,19 @@
 <template>
     <div class="app">
-        Hello from app-component {{ msg }}
+        Hello {{ username }} in RPG Helper
     </div>
 </template>
 <script>
     export default {
         data() {
             return {
-                msg: 'hey'
+                username: ''
             }
+        },
+        created() {
+            this.$http.post('/auth/login')
+                .then(response => response.json())
+                .then(json => this.username = json.username);
         }
     }
 </script>
