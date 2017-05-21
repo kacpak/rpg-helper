@@ -12,7 +12,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const baseConfig = {
     entry: {
-        app: ['./src/app/entry.js']
+        app: ['./src/app/bootstrap.js']
     },
     output: {
         path: path.resolve(__dirname, 'public'),

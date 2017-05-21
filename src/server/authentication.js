@@ -1,13 +1,16 @@
 import express from 'express';
 import passport from 'passport';
 import { BasicStrategy } from 'passport-http';
-import { findUserByUsername, findUserById } from './db';
+import Users from './db/users';
 
 export function init(app) {
     passport.serializeUser((user, done) => done(null, user.id));
-    passport.deserializeUser((id, done) => done(null, findUserById(id)));
-    passport.use(new BasicStrategy((username, password, done) => {
-        const user = findUserByUsername(username);
+    passport.deserializeUser(async (id, done) => {
+        const user = await Users.findById(id);
+        done(null, user);
+    });
+    passport.use(new BasicStrategy(async (username, password, done) => {
+        const user = await Users.findByLogin(username);
         if (user && user.password === password) {
             return done(null, user);
         }
@@ -18,10 +21,8 @@ export function init(app) {
 }
 
 const authenticate = () => passport.authenticate('basic');
-const router = express.Router();
+export const router = express.Router();
 
 router.post('/login', authenticate(), (req, res) => {
     res.json(req.user);
 });
-
-export default router;

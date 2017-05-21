@@ -13,7 +13,7 @@
         created() {
             this.$http.post('/auth/login')
                 .then(response => response.json())
-                .then(json => this.username = json.username);
+                .then(json => this.username = json.login);
         }
     }
 </script>

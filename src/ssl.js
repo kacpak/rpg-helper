@@ -1,18 +1,18 @@
 import fs from 'fs';
 import path from 'path';
+import paths from './paths';
 
-const sslCertDir = path.resolve(__dirname, '..', 'sslcert');
 const files = {
-    key: path.join(sslCertDir, 'private.key'),
-    cert: path.join(sslCertDir, 'certificate.pem')
+    key: path.join(paths.sslCert, 'private.key'),
+    cert: path.join(paths.sslCert, 'certificate.pem')
 };
 
 if (!fs.existsSync(files.key)) {
-    throw `Couldn't locate ${files.key} for SSL support!`;
+    throw `[SSL] Couldn't locate private.key file in ${files.key}!`;
 }
 
 if (!fs.existsSync(files.cert)) {
-    throw `Couldn't locate ${files.cert} for SSL support!`;
+    throw `[SSL] Couldn't locate SSL certificate ${files.cert}!`;
 }
 
 export const credentials = {

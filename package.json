@@ -21,6 +21,7 @@
   },
   "files": [
     "dist",
+    "migrations",
     "cli.js"
   ],
   "devDependencies": {
@@ -51,7 +52,10 @@
     "node-sass": "^4.5.3",
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
+    "passport.socketio": "^3.7.0",
     "sass-loader": "^6.0.5",
+    "socket.io": "^2.0.1",
+    "sqlite": "^2.8.0",
     "style-loader": "^0.17.0",
     "uglify-js": "git://github.com/mishoo/UglifyJS2#harmony-v2.8.22",
     "url-loader": "^0.5.8",
