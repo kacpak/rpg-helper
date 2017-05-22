@@ -13,7 +13,6 @@
     export default {
         computed: {
             loggedInUser() {
-                console.log(this.$store.state.account.user);
                 if (this.$store.state.account.user)
                     return this.$store.state.account.user.login;
                 return undefined;
