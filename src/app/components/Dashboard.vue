@@ -16,7 +16,6 @@
 
     export default {
         beforeRouteEnter(to, from, next) {
-            console.log('on enter dashboard', store.state.account.user);
             if (store.state.account.user === null) {
                 return next({ name: 'login' })
             }

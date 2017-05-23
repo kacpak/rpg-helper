@@ -10,5 +10,14 @@ export default {
     },
     logout() {
         return Vue.http.get('/auth/logout');
+    },
+    register(login, password) {
+        return Vue.http.post('/auth/register', { login, password })
+            .then(response => {
+                if (!response.ok) {
+                    throw response;
+                }
+                return response;
+            });
     }
 };

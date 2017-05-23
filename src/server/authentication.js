@@ -31,3 +31,12 @@ router.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
 });
+
+router.post('/register', async (req, res) => {
+    try {
+        await Users.insertNewUser(req.body.login, req.body.password);
+        res.sendStatus(200);
+    } catch (e) {
+        res.status(403).send(e);
+    }
+});

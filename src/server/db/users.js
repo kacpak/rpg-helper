@@ -8,4 +8,8 @@ export default class User {
     static async findByLogin(login) {
         return await db.get('SELECT * FROM Users WHERE login = ?', login);
     }
+
+    static async insertNewUser(login, password) {
+        return await await db.run(`INSERT INTO Users (id, login, password) VALUES(NULL, ?, ?)`, login, password);
+    }
 }
