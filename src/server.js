@@ -10,7 +10,7 @@ import session from 'express-session';
 import ConnectSQLite from 'connect-sqlite3';
 
 import paths from './paths';
-import * as auth from './server/authentication';
+import * as auth from './server/auth';
 import * as db from './server/db';
 import * as sockets from './server/sockets';
 import { credentials } from './ssl';
@@ -31,6 +31,7 @@ async function initialize() {
     };
 
     app.use(morgan('short'));
+    app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     app.use(session(sessionOptions));
 

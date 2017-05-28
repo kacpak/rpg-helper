@@ -13,10 +13,15 @@
 </template>
 <script>
     import store from '../store';
+    import {getJwtToken} from '../util/storage';
 
     export default {
-        beforeRouteEnter(to, from, next) {
+        async beforeRouteEnter(to, from, next) {
             if (store.state.account.user === null) {
+                if (getJwtToken()) {
+                    await store.dispatch('authenticate');
+                    return next();
+                }
                 return next({ name: 'login' })
             }
             return next()

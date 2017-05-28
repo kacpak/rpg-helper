@@ -1,18 +1,17 @@
 import socketIo from 'socket.io';
-import passportSocketIo from 'passport.socketio';
+import SocketIoJwt from 'socketio-jwt';
 
-export function init(https, sessionOptions) {
+export function init(https) {
     const io = socketIo(https, {
         serveClient: false
     });
 
-    io.use(passportSocketIo.authorize({
-        store: sessionOptions.store,
-        key: sessionOptions.key,
-        secret: sessionOptions.secret
-    }));
-
-    io.on('connection', socket => {
-        console.log(`New user (${socket.request.user.login}) connected.`);
-    });
+    io
+        .on('connection', SocketIoJwt.authorize({
+            secret: process.env.SECRET,
+            callback: 15000
+        }))
+        .on('authenticated', socket => {
+            console.log(`New user (id: ${socket.decoded_token.id}) connected.`);
+        });
 }
