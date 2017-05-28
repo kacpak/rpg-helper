@@ -6,6 +6,8 @@ import * as config from './config';
 
 const Knex = knex(config[process.env.NODE_ENV || 'development']);
 const Bookshelf = bookshelf(Knex);
+Bookshelf.plugin('registry');
+Bookshelf.plugin('visibility');
 Bookshelf.plugin(ModelBase);
 
 export async function migrate() {

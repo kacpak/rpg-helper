@@ -8,9 +8,11 @@ import https from 'https';
 import morgan from 'morgan';
 
 import paths from './paths';
-import * as auth from './auth/index';
+import * as auth from './auth';
 import * as db from './db/index';
 import * as sockets from './sockets/index';
+import authController from './controllers/auth';
+import sessionsController from './controllers/sessions';
 import { credentials } from './config/ssl';
 import webpackDevMiddlewareInit from './config/webpack-dev-middleware';
 
@@ -23,7 +25,8 @@ async function initialize() {
     app.use(bodyParser.json());
 
     auth.init(app);
-    app.use('/auth', auth.router);
+    app.use('/auth', authController);
+    app.use('/api', sessionsController);
 
     if (process.env.NODE_ENV === 'development') {
         webpackDevMiddlewareInit(app);

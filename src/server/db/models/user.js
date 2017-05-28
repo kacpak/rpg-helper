@@ -1,10 +1,18 @@
 import Bookshelf from '../index';
 
-export default class User extends Bookshelf.Model {
+class User extends Bookshelf.Model {
     get tableName() { return 'users'; }
     get hasTimestamps() { return true; }
+    get hidden() { return ['password']; }
 
-    async findByLogin(login) {
-        return await this.findOne({ login });
+    findByLogin(login) {
+        return this.findOne({login});
+    }
+
+    sessions() {
+        return this.belongsToMany('Session');
     }
 }
+
+
+export default Bookshelf.model('User', User);

@@ -1,6 +1,6 @@
 <template>
     <div class="session">
-
+        Session id: <strong>{{ $route.params.id }}</strong>
     </div>
 </template>
 <script>

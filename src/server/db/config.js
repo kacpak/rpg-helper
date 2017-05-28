@@ -8,7 +8,8 @@ const base = {
     },
     seeds: {
         directory: path.join(__dirname, 'seeds')
-    }
+    },
+    useNullAsDefault: true
 };
 
 export const development = Object.assign({}, base, {
