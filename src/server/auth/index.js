@@ -1,8 +1,9 @@
+import bcrypt from 'bcrypt';
 import express from 'express';
+import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import { Strategy as JwtStrategy, ExtractJwt} from 'passport-jwt';
-import jwt from 'jsonwebtoken';
-import Users from '../db/users';
+import User from '../db/models/user';
 
 export function init(app) {
     const options = {
@@ -12,7 +13,7 @@ export function init(app) {
 
     passport.use(new JwtStrategy(options, async (jwtPayload, done) => {
         try {
-            const user = await Users.findById(jwtPayload.id);
+            const user = await User.findById(jwtPayload.id);
             if (user) {
                 return done(null, user);
             }
@@ -29,8 +30,8 @@ export const router = express.Router();
 
 router.post('/login', async (req, res) => {
     try {
-        const user = await Users.findByLogin(req.body.login);
-        if (req.body.password === user.password) {
+        const user = await User.findOne({ login: req.body.login });
+        if (await bcrypt.compare(req.body.password, user.attributes.password)) {
             const token = jwt.sign(
                 {
                     id: user.id
@@ -38,6 +39,7 @@ router.post('/login', async (req, res) => {
                 process.env.SECRET,
                 { expiresIn: 6 * 60 * 60 }
             );
+            delete user.password;
             return res.json({user, token});
         }
     } catch (err) {
@@ -47,6 +49,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/me', authenticate(), (req, res) => {
+    delete req.user.password;
     res.json(req.user);
 });
 
@@ -57,7 +60,10 @@ router.get('/logout', (req, res) => {
 
 router.post('/register', async (req, res) => {
     try {
-        await Users.insertNewUser(req.body.login, req.body.password);
+        await User.create({
+            login: req.body.login,
+            password: await bcrypt.hash(req.body.password, 10)
+        });
         res.sendStatus(200);
     } catch (e) {
         res.status(403).send(e);

@@ -1,29 +1,23 @@
-import db from 'sqlite';
-import path from 'path';
-import paths from '../../paths';
+import knex from 'knex';
+import bookshelf from 'bookshelf';
+import {pluggable as ModelBase} from 'bookshelf-modelbase';
 
-export async function init() {
-    const force = process.env.NODE_ENV === 'development' ? 'last' : false;
-    const migrationsPath = path.join(paths.root, 'migrations');
+import * as config from './config';
 
-    console.log('Accessing database...');
-    const dbPath = path.join(paths.database, 'database.db');
-    await db.open(dbPath, { cached: true });
+const Knex = knex(config[process.env.NODE_ENV || 'development']);
+const Bookshelf = bookshelf(Knex);
+Bookshelf.plugin(ModelBase);
+
+export async function migrate() {
     console.log('Migrating database...');
-    await db.migrate({
-        migrationsPath,
-        force
-    });
+    await Knex.migrate.latest();
     console.log('Migrating database completed.');
 
     if (process.env.NODE_ENV === 'development') {
-        await seedDemoData();
+        console.log('Seeding demo database data...');
+        await Knex.seed.run();
+        console.log('Seeding demo database data completed.');
     }
 }
 
-async function seedDemoData() {
-    console.log('Seeding demo database data...');
-    await db.run(`INSERT INTO Users (id, login, password) VALUES(NULL, 'kacpak', 'pass')`);
-    await db.run(`INSERT INTO Users (id, login, password) VALUES(NULL, 'test', 'pass')`);
-    console.log('Seeding demo database data completed.');
-}
+export default Bookshelf;

@@ -8,6 +8,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import BabiliPlugin from 'babili-webpack-plugin';
 
+import paths from '../paths';
+
 const isProduction = process.env.NODE_ENV === 'production';
 
 const baseConfig = {
@@ -15,7 +17,7 @@ const baseConfig = {
         app: ['./src/app/bootstrap.js']
     },
     output: {
-        path: path.resolve(__dirname, 'public'),
+        path: paths.public,
         filename: '[name].js',
         publicPath: '/',
     },

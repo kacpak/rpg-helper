@@ -6,34 +6,21 @@ import express from 'express';
 import historyApiFallback from 'express-history-api-fallback';
 import https from 'https';
 import morgan from 'morgan';
-import session from 'express-session';
-import ConnectSQLite from 'connect-sqlite3';
 
 import paths from './paths';
-import * as auth from './server/auth';
-import * as db from './server/db';
-import * as sockets from './server/sockets';
-import { credentials } from './ssl';
-import webpackDevMiddlewareInit from './webpack-dev-middleware';
+import * as auth from './auth/index';
+import * as db from './db/index';
+import * as sockets from './sockets/index';
+import { credentials } from './config/ssl';
+import webpackDevMiddlewareInit from './config/webpack-dev-middleware';
 
 const app = express();
 async function initialize() {
-    await db.init();
-
-    const SQLiteStore = new ConnectSQLite(session);
-    const sessionOptions = {
-        store: new SQLiteStore({dir: paths.database}),
-        key: 'express.sid',
-        secret: process.env.SECRET || 'secret',
-        secure: true,
-        resave: false,
-        saveUninitialized: false
-    };
+    await db.migrate();
 
     app.use(morgan('short'));
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
-    app.use(session(sessionOptions));
 
     auth.init(app);
     app.use('/auth', auth.router);
@@ -46,7 +33,7 @@ async function initialize() {
     }
 
     const httpsServer = https.createServer(credentials, app);
-    sockets.init(httpsServer, sessionOptions);
+    sockets.init(httpsServer);
 
     httpsServer.listen(process.env.PORT)
         .on('error', function (err) {
