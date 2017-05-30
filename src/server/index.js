@@ -4,7 +4,7 @@ dotenv.config();
 import bodyParser from 'body-parser';
 import express from 'express';
 import historyApiFallback from 'express-history-api-fallback';
-import https from 'https';
+import spdy from 'spdy';
 import morgan from 'morgan';
 
 import paths from './paths';
@@ -35,7 +35,7 @@ async function initialize() {
         app.use(historyApiFallback('index.html', { root: paths.public }));
     }
 
-    const httpsServer = https.createServer(credentials, app);
+    const httpsServer = spdy.createServer(credentials, app);
     sockets.init(httpsServer);
 
     httpsServer.listen(process.env.PORT)

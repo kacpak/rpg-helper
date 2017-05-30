@@ -40,6 +40,7 @@
     "passport-jwt": "^2.2.1",
     "socket.io": "^2.0.1",
     "socketio-jwt": "^4.5.0",
+    "spdy": "^3.4.7",
     "sqlite3": "^3.1.8"
   },
   "devDependencies": {
