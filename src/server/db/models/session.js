@@ -7,6 +7,10 @@ class Session extends Bookshelf.Model {
     users() {
         return this.belongsToMany('User');
     }
+
+    chatMessages() {
+        return this.hasMany('ChatMessage');
+    }
 }
 
 
