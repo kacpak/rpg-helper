@@ -1,18 +1,18 @@
 import Vue from 'vue';
-import {getJwtToken} from '../util/storage';
+import store from '../store';
 
 export default {
     fetchAll() {
         return Vue.http.get('/api/sessions', {
             headers: {
-                Authorization: `JWT ${getJwtToken()}`
+                Authorization: `JWT ${store.state.account.token}`
             }
         });
     },
     create(name, description) {
         return Vue.http.post('/api/sessions', {name, description}, {
             headers: {
-                Authorization: `JWT ${getJwtToken()}`
+                Authorization: `JWT ${store.state.account.token}`
             }
         });
     }

@@ -8,7 +8,6 @@ import Session from './components/authorized/Session.vue';
 import NewSession from './components/authorized/NewSession.vue';
 import AuthorizedContainer from './components/authorized/Container.vue';
 import store from './store';
-import {getJwtToken} from './util/storage';
 
 Vue.use(VueRouter);
 
@@ -20,11 +19,10 @@ export default new VueRouter({
             component: AuthorizedContainer,
             async beforeEnter(to, from, next) {
                 if (store.state.account.user === null) {
-                    if (getJwtToken()) {
-                        await store.dispatch('authenticate');
-                        return next();
+                    const user = await store.dispatch('authenticate');
+                    if (!user) {
+                        return next({ name: 'login' });
                     }
-                    return next({ name: 'login' });
                 }
                 return next();
             },

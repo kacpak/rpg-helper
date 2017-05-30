@@ -1,4 +1,5 @@
 import Session from '../../api/session';
+import {SET_SESSIONS, SET_CURRENT_SESSION} from '../mutation-types';
 
 export default {
     namespaced: true,
@@ -11,10 +12,10 @@ export default {
         finished: state => state.sessions.filter(session => !session.active)
     },
     mutations: {
-        setSessions(state, sessions) {
+        [SET_SESSIONS](state, sessions) {
             state.sessions = sessions;
         },
-        setCurrentSession(state, session) {
+        [SET_CURRENT_SESSION](state, session) {
             state.current = session;
         }
     },
@@ -30,7 +31,7 @@ export default {
         fetchAll({commit}) {
             return Session.fetchAll()
                 .then(response => response.body)
-                .then(sessions => commit('setSessions', sessions))
+                .then(sessions => commit(SET_SESSIONS, sessions))
                 .catch(console.error);
         }
     }

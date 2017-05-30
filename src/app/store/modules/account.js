@@ -1,5 +1,5 @@
 import User from '../../api/user';
-import { saveJwtToken, getJwtToken } from '../../util/storage';
+import {AUTHENTICATE, UNAUTHENTICATE} from '../mutation-types';
 
 export default {
     state: {
@@ -7,33 +7,43 @@ export default {
         token: null
     },
     mutations: {
-        authenticate(state, { user, token }) {
+        [AUTHENTICATE](state, { user, token }) {
             state.user = user;
-            saveJwtToken(token);
             state.token = token;
+            localStorage.setItem('JWT', token);
         },
-        unauthenticate(state) {
+        [UNAUTHENTICATE](state) {
             state.user = null;
             state.token = null;
-            saveJwtToken(null);
+            localStorage.removeItem('JWT');
         }
     },
     actions: {
         login({commit}, {login, password}) {
             return User.login(login, password)
                 .then(response => response.json())
-                .then(payload => commit('authenticate', payload))
-                .catch(() => commit('unauthenticate'));
+                .then(payload => commit(AUTHENTICATE, payload))
+                .catch(() => commit(UNAUTHENTICATE));
         },
-        authenticate({commit}) {
-            return User.me()
-                .then(response => response.json())
-                .then(user => commit('authenticate', { user, token: getJwtToken() }))
-                .catch(() => commit('unauthenticate'));
+        async authenticate({commit}) {
+            const jwt = localStorage.getItem('JWT');
+
+            if (!jwt) {
+                return null;
+            }
+
+            try {
+                const {body: user} = await User.me(jwt);
+                commit(AUTHENTICATE, { user, token: jwt });
+                return user;
+            } catch (err) {
+                commit(UNAUTHENTICATE);
+                return null;
+            }
         },
         logout({commit}) {
             return User.logout()
-                .finally(() => commit('unauthenticate'));
+                .finally(() => commit(UNAUTHENTICATE));
         },
         register({commit}, {login, password}) {
             return User.register(login, password);

@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import {getJwtToken} from '../util/storage';
+import store from '../store';
 
 
 export default {
@@ -18,10 +18,10 @@ export default {
                 return response;
             });
     },
-    me() {
+    me(token = store.state.account.token) {
         return Vue.http.get('/auth/me', {
             headers: {
-                Authorization: `JWT ${getJwtToken()}`
+                Authorization: `JWT ${token}`
             }
         });
     }
