@@ -14,7 +14,6 @@ import * as sockets from './sockets/index';
 import authController from './controllers/auth';
 import sessionsController from './controllers/sessions';
 import { credentials } from './config/ssl';
-import webpackDevMiddlewareInit from './config/webpack-dev-middleware';
 
 const app = express();
 async function initialize() {
@@ -29,6 +28,7 @@ async function initialize() {
     app.use('/api', sessionsController);
 
     if (process.env.NODE_ENV === 'development') {
+        const { default: webpackDevMiddlewareInit } = await import('./config/webpack-dev-middleware');
         webpackDevMiddlewareInit(app);
     } else {
         app.use('/', express.static(paths.public));

@@ -25,8 +25,6 @@
     </div>
 </template>
 <script>
-    import Session from '../../api/session';
-
     export default {
         computed: {
             activeSessions() {
