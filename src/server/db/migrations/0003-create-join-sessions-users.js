@@ -1,4 +1,4 @@
-export function up(knex, Promise) {
+export function up(knex) {
     return knex.schema.createTableIfNotExists('sessions_users', table => {
         table.increments();
         table.integer('user_id').references('users.id');
@@ -7,6 +7,6 @@ export function up(knex, Promise) {
     });
 }
 
-export function down(knex, Promise) {
+export function down(knex) {
     return knex.schema.dropTable('sessions_users');
 }

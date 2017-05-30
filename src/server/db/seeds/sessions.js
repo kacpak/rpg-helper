@@ -1,4 +1,4 @@
-export async function seed(knex, Promise) {
+export async function seed(knex) {
     await knex('sessions').del();
     await knex('sessions').insert([
         {id: 1, name: 'Kamyk D&D', description: 'Wiekopomna sesja prowadzona przez Kamyka', active: 1},

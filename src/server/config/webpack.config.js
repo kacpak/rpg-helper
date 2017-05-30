@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import path from 'path';
 import webpack from 'webpack';
 import webpackMerge from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';

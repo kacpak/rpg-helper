@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 
-export async function seed(knex, Promise) {
+export async function seed(knex) {
     await knex('users').del();
     await knex('users').insert([
         {id: 1, login: 'kacpak', password: bcrypt.hashSync('pass', 10)},

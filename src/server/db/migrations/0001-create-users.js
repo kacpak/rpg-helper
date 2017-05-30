@@ -1,4 +1,4 @@
-export function up(knex, Promise) {
+export function up(knex) {
     return knex.schema.createTableIfNotExists('users', table => {
         table.increments().primary();
         table.string('login').unique();
@@ -7,6 +7,6 @@ export function up(knex, Promise) {
     });
 }
 
-export function down(knex, Promise) {
+export function down(knex) {
     return knex.schema.dropTable('users');
 }
