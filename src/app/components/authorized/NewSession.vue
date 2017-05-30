@@ -1,10 +1,14 @@
 <template>
     <form @submit.prevent="onSubmit">
         <fieldset :disabled="inProgress">
-            <div class="form-group row">
+            <div class="form-group row" :class="{'has-danger': errors.has('name')}">
                 <label for="name" class="col-sm-2 col-form-label">Nazwa</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" v-model="name" id="name" placeholder="Nazwa">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Nazwa"
+                           v-model="name"
+                           v-validate="'required|min:3'"
+                    >
+                    <div v-if="errors.has('name')" class="form-control-feedback">{{ errors.first('name') }}</div>
                 </div>
             </div>
             <div class="form-group row">
@@ -15,7 +19,7 @@
             </div>
             <div class="form-group row">
                 <div class="offset-sm-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary">Stwórz</button>
+                    <button type="submit" class="btn btn-primary" :disabled="!isFormValid">Stwórz</button>
                 </div>
             </div>
         </fieldset>
@@ -29,6 +33,11 @@
                 description: '',
                 inProgress: false
             };
+        },
+        computed: {
+            isFormValid() {
+                return Object.keys(this.fields).every(key => this.fields[key].valid)
+            }
         },
         methods: {
             onSubmit() {

@@ -1,7 +1,7 @@
 export function up(knex, Promise) {
     return knex.schema.createTableIfNotExists('users', table => {
         table.increments().primary();
-        table.string('login');
+        table.string('login').unique();
         table.string('password');
         table.timestamps();
     });

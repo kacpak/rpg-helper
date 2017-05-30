@@ -23,7 +23,10 @@ export default {
             return User.login(login, password)
                 .then(response => response.json())
                 .then(payload => commit(AUTHENTICATE, payload))
-                .catch(() => commit(UNAUTHENTICATE));
+                .catch(err => {
+                    commit(UNAUTHENTICATE);
+                    throw err;
+                });
         },
         async authenticate({commit}) {
             const jwt = localStorage.getItem('JWT');
