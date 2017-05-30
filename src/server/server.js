@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import bodyParser from 'body-parser';
+import compression from 'compression';
 import express from 'express';
 import historyApiFallback from 'express-history-api-fallback';
 import spdy from 'spdy';
@@ -19,6 +20,7 @@ export async function start() {
     const app = express();
     await db.migrate();
 
+    app.use(compression());
     app.use(morgan('short'));
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
