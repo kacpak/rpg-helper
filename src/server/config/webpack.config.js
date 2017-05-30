@@ -83,7 +83,7 @@ const devBuild = webpackMerge.smart(baseConfig, {
     entry: {
         app: ['webpack-hot-middleware/client?reload=true']
     },
-    devtool: '#cheap-module-source-map',
+    devtool: '#inline-source-map',
     plugins: [
         new webpack.HotModuleReplacementPlugin()
     ]

@@ -10,7 +10,7 @@ const paths = {
     root,
     dist,
     public: path.join(dist, 'public'),
-    database: path.join(dist, 'database'),
+    database: process.env.DATABASE_DIR || path.join(dist, 'database'),
     sslCert: process.env.SSL_CERT_DIR || path.join(root, 'sslcert')
 };
 

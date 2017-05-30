@@ -42,7 +42,8 @@
     "socket.io": "^2.0.1",
     "socketio-jwt": "^4.5.0",
     "spdy": "^3.4.7",
-    "sqlite3": "^3.1.8"
+    "sqlite3": "^3.1.8",
+    "yargs": "^8.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
