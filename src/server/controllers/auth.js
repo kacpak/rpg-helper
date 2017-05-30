@@ -8,8 +8,8 @@ const router = express.Router();
 
 router.post('/login', async (req, res) => {
     try {
-        const user = await User.findOne({ login: req.body.login });
-        if (await bcrypt.compare(req.body.password, user.attributes.password)) {
+        const user = (await User.query().where('login', '=', req.body.login))[0];
+        if (await bcrypt.compare(req.body.password, user.password)) {
             const token = jwt.sign(
                 {
                     id: user.id
@@ -34,7 +34,7 @@ router.get('/logout', (req, res) => {
 
 router.post('/register', async (req, res) => {
     try {
-        await User.create({
+        await User.query().insert({
             login: req.body.login,
             password: await bcrypt.hash(req.body.password, 10)
         });

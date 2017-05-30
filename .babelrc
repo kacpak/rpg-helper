@@ -6,5 +6,5 @@
             }
         } ]
     ],
-    "plugins": ["syntax-dynamic-import", "babel-plugin-dynamic-import-node"]
+    "plugins": ["syntax-dynamic-import", "babel-plugin-dynamic-import-node", ["transform-class-properties", { "spec": true }]]
 }

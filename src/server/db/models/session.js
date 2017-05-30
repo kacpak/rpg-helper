@@ -1,13 +1,21 @@
-import Bookshelf from '../index';
+import {Model} from 'objection';
+import User from './user';
 
-class Session extends Bookshelf.Model {
-    get tableName() { return 'sessions'; }
-    get hasTimestamps() { return true; }
+export default class Session extends Model {
+    static tableName = 'sessions';
 
-    users() {
-        return this.belongsToMany('User');
+    static relationMappings = {
+        users: {
+            relation: Model.ManyToManyRelation,
+            modelClass: User,
+            join: {
+                from: 'sessions.id',
+                through: {
+                    from: 'sessions_users.session_id',
+                    to: 'sessions_users.user_id'
+                },
+                to: 'users.id'
+            }
+        }
     }
 }
-
-
-export default Bookshelf.model('Session', Session);

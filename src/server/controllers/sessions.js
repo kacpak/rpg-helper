@@ -5,7 +5,7 @@ import { authenticate } from '../auth';
 const router = express.Router();
 
 router.get('/sessions', authenticate(), async (req, res) => {
-    const userSessions = await req.user.related('sessions').fetch();
+    const userSessions = await req.user.$relatedQuery('sessions');
     res.json(userSessions);
 });
 

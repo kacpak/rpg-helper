@@ -1,18 +1,29 @@
-import Bookshelf from '../index';
+import {Model} from 'objection';
+import Session from './session';
+import omit from 'lodash.omit';
 
-class User extends Bookshelf.Model {
-    get tableName() { return 'users'; }
-    get hasTimestamps() { return true; }
-    get hidden() { return ['password']; }
+export default class User extends Model {
+    static tableName = 'users';
 
-    findByLogin(login) {
-        return this.findOne({login});
-    }
+    static $secureFields = ['password'];
 
-    sessions() {
-        return this.belongsToMany('Session');
+    static relationMappings = {
+        sessions: {
+            relation: Model.ManyToManyRelation,
+            modelClass: Session,
+            join: {
+                from: 'users.id',
+                through: {
+                    from: 'sessions_users.user_id',
+                    to: 'sessions_users.session_id'
+                },
+                to: 'sessions.id'
+            }
+        }
+    };
+
+    static $formatJson(json, options) {
+        json = super.$formatJson(json, options);
+        return omit(json, this.$secureFields);
     }
 }
-
-
-export default Bookshelf.model('User', User);
