@@ -4,6 +4,10 @@
 
 Dungeons &amp; Dragons Session Helper
 
+## Requirements
+* Node ^7.10.0
+* `openssl` to generate ssl certificate
+
 ## CLI
 ```bash
 $ rpg-helper -h
