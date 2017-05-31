@@ -5,6 +5,29 @@
 Dungeons &amp; Dragons Session Helper
 
 ## CLI
+```bash
+$ rpg-helper -h
+Usage: rpg-helper <command> [options]
+
+Commands:
+  start  start RPG Helper
+
+start
+  --ssl-dir, --ssl      directory with ssl certificate                                                           [string]
+  --database-dir, --db  directory for storing database files                                                     [string]
+  --secret, -s          long secret string for encryption purposes                                    [string] [required]
+  --port, -p            port on which server will be available                                    [number] [default: 443]
+
+Options:
+  --version, -v  Show version number                                                                            [boolean]
+  --help, -h     Show help                                                                                      [boolean]
+
+Examples:
+  rpg-helper start --db=./path/to/dir --ssl=./path/to/dir       start RPG Helper storing database in the given directory,
+  --secret=SECRET-KEY                                           with provided certificates
+
+Copyright © 2017 Mateusz Kasprzak
+```
 
 ## Developer
 * `cp .env-sample .env`

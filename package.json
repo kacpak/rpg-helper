@@ -17,6 +17,7 @@
     "test": "run-s test:*",
     "test:lint": "eslint src"
   },
+  "preferGlobal": true,
   "bin": {
     "rpg-helper": "./cli.js"
   },
