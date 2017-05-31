@@ -20,33 +20,36 @@
 </template>
 <script>
     import {getSocket} from '../../api/socket';
+    import {ADD_MESSAGE, SET_MESSAGES} from '../../store/mutation-types';
 
     export default {
         props: ['id'],
         data() {
             return {
-                message: '',
-                messages: []
+                message: ''
             }
         },
         created() {
-            this.socket = getSocket({
-                session: {
-                    id: parseInt(this.id, 10)
-                }
+            this.$store.commit(SET_MESSAGES, []);
+            this.socket = getSocket('chat', {
+                room: 'chat',
+                session_id: parseInt(this.id, 10)
             });
             this.socket
-                .on('chat message', msg => {
-                    this.messages.push(msg);
-                })
-                .on('session', messages => this.messages = messages);
+                .on('chat', messages => this.$store.commit(SET_MESSAGES, messages))
+                .on('chat/message', message => this.$store.commit(ADD_MESSAGE, message));
         },
         beforeDestroy() {
             this.socket.emit('disconnect');
         },
+        computed: {
+            messages() {
+                return this.$store.state.chat.messages;
+            }
+        },
         methods: {
             sendMessage() {
-                this.socket.emit('chat message', this.message);
+                this.socket.emit('chat/message', this.message);
                 this.message = '';
             }
         }
