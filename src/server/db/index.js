@@ -1,6 +1,9 @@
 import knex from 'knex';
 import bookshelf from 'bookshelf';
 import {pluggable as ModelBase} from 'bookshelf-modelbase';
+import {getLogger} from '../logger';
+
+const logger = getLogger('DATABASE');
 
 import * as config from './config';
 
@@ -11,14 +14,14 @@ Bookshelf.plugin('visibility');
 Bookshelf.plugin(ModelBase);
 
 export async function migrate() {
-    console.log('Migrating database...');
+    logger.info('Migrating database...');
     await Knex.migrate.latest();
-    console.log('Migrating database completed.');
+    logger.info('Migrating database completed.');
 
     if (process.env.NODE_ENV === 'development') {
-        console.log('Seeding demo database data...');
+        logger.info('Seeding demo database data...');
         await Knex.seed.run();
-        console.log('Seeding demo database data completed.');
+        logger.info('Seeding demo database data completed.');
     }
 }
 
