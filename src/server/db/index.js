@@ -14,14 +14,20 @@ Bookshelf.plugin('visibility');
 Bookshelf.plugin(ModelBase);
 
 export async function migrate() {
-    logger.info('Migrating database...');
-    await Knex.migrate.latest();
-    logger.info('Migrating database completed.');
+    try {
+        logger.info('Migrating database...');
+        await Knex.migrate.latest();
+        logger.info('Migrating database completed.');
 
-    if (process.env.NODE_ENV === 'development') {
-        logger.info('Seeding demo database data...');
-        await Knex.seed.run();
-        logger.info('Seeding demo database data completed.');
+        if (process.env.NODE_ENV === 'development') {
+            logger.info('Seeding demo database data...');
+            await Knex.seed.run();
+            logger.info('Seeding demo database data completed.');
+        }
+    } catch (err) {
+        logger.error(`${err.name}: ${err.message}`);
+        logger.debug(err);
+        throw err;
     }
 }
 

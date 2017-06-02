@@ -1,13 +1,16 @@
 import Vue from 'vue';
 import store from '../store';
 
-
 export default {
     login(login, password) {
         return Vue.http.post('/auth/login', { login, password });
     },
     logout() {
-        return Vue.http.get('/auth/logout');
+        return Vue.http.get('/auth/logout', {
+            headers: {
+                Authorization: `JWT ${store.state.account.token}`
+            }
+        });
     },
     register(login, password) {
         return Vue.http.post('/auth/register', { login, password })

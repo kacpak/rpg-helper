@@ -11,6 +11,16 @@ import paths from '../paths';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+const babelOptions = {
+    babelrc: false,
+    presets: [ [ 'env', {
+        targets: {
+            browsers: ['> 1%', 'last 2 versions', 'safari >= 7', 'ie >= 11']
+        },
+        useBuiltIns: true
+    } ] ],
+};
+
 const baseConfig = {
     entry: {
         app: ['./src/app/bootstrap.js']
@@ -23,19 +33,9 @@ const baseConfig = {
     module: {
         rules: [
             {
-                test: /\.js$/,
-                use: [{
-                    loader: 'babel-loader',
-                    options: {
-                        babelrc: false,
-                        presets: [ [ 'env', {
-                            targets: {
-                                browsers: ['> 1%', 'last 2 versions', 'safari >= 7', 'ie >= 11']
-                            },
-                            useBuiltIns: true
-                        } ] ],
-                    }
-                }],
+                test: /\.jsx?$/,
+                loader: 'babel-loader',
+                options: babelOptions,
                 exclude: /node_modules/
             },
             {
@@ -50,8 +50,12 @@ const baseConfig = {
                 loader: 'vue-loader',
                 options: {
                     loaders: {
-                        scss: 'vue-style-loader!css-loader!sass-loader'
-                    }
+                        scss: ExtractTextPlugin.extract({
+                            use: ['css-loader', 'sass-loader'],
+                            fallback: 'vue-style-loader'
+                        })
+                    },
+                    extractCSS: isProduction
                 }
             }
         ]

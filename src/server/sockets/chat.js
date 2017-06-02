@@ -24,6 +24,7 @@ export default function initSession(io, socket) {
                     sender_id: socket._user.attributes.id
                 });
 
+                logger.info(`User ${socket._user.attributes.login} sent message in ${session.attributes.id}:${session.attributes.name}`);
                 io.to(socket._roomName).emit('chat/message', {
                     message: message.attributes.message,
                     sender: {

@@ -64,7 +64,7 @@
     .messages {
         flex: 1;
         overflow: auto;
-        max-height: 20em;
+        height: 100%;
     }
 }
 </style>
