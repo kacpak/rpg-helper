@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import compression from 'compression';
 import express from 'express';
 import historyApiFallback from 'express-history-api-fallback';
+import http from 'http';
 import spdy from 'spdy';
 
 import paths from './paths';
@@ -44,7 +45,9 @@ export async function start() {
         app.use(historyApiFallback('index.html', { root: paths.public }));
     }
 
-    const httpsServer = spdy.createServer(credentials, app);
+    const httpsServer = process.env.FORCE_HTTP
+        ? http.createServer(app)
+        : spdy.createServer(credentials, app);
     sockets.init(httpsServer);
 
     httpsServer.listen(process.env.PORT)
