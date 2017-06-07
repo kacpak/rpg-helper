@@ -17,6 +17,7 @@
     "test": "run-s test:*",
     "test:lint": "eslint src",
 
+    "heroku-postbuild": "yarn run build",
     "version": "yarn run build",
     "full-publish": "np"
   },
