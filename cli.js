@@ -41,7 +41,7 @@ const argv = yargs
         requiresArg: true,
         default: 443
     })
-    .example('rpg-helper start --db=./path/to/dir --ssl=./path/to/dir', 'start RPG Helper storing database in the given directory, with provided certificates')
+    .example('rpg-helper start --db=./path/to/dir --ssl=./path/to/dir --secret=SECRET-KEY', 'start RPG Helper storing database in the given directory, with provided certificates')
     .version()
     .alias('version', 'v')
     .help('help')
@@ -49,6 +49,7 @@ const argv = yargs
     .epilog('Copyright © 2017 Mateusz Kasprzak')
     .showHelpOnFail(false, 'Specify --help for available options')
     .wrap(yargs.terminalWidth())
+    .locale('en')
     .argv;
 
 function start(argv) {

@@ -6,7 +6,6 @@ import compression from 'compression';
 import express from 'express';
 import historyApiFallback from 'express-history-api-fallback';
 import spdy from 'spdy';
-import morgan from 'morgan';
 
 import paths from './paths';
 import * as auth from './auth';
@@ -15,13 +14,21 @@ import * as sockets from './sockets/index';
 import authController from './controllers/auth';
 import sessionsController from './controllers/sessions';
 import { credentials } from './config/ssl';
+import initLogger, {getLogger} from './logger';
+
+const logger = getLogger('MAIN');
 
 export async function start() {
     const app = express();
-    await db.migrate();
+    initLogger(app);
+
+    try {
+        await db.migrate();
+    } catch (err) {
+        process.exit(1);
+    }
 
     app.use(compression());
-    app.use(morgan('short'));
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
 
@@ -48,11 +55,11 @@ export async function start() {
 
             switch (err.code) {
                 case 'EACCES':
-                    console.error(`Setting up this server requires elevated privileges`);
+                    logger.error(`Setting up this server requires elevated privileges`);
                     process.exit(1);
                     break;
                 case 'EADDRINUSE':
-                    console.error(`Port ${err.port} is already in use`);
+                    logger.error(`Port ${err.port} is already in use`);
                     process.exit(2);
                     break;
                 default:
@@ -61,10 +68,10 @@ export async function start() {
         })
         .on('listening', function () {
             const port = this.address().port;
-            console.log(`Listening on *:${port}.`);
+            logger.info(`Listening on *:${port}.`);
 
             if (process.env.NODE_ENV === 'development') {
-                console.log(`Open up https://localhost:${port}/ in your browser.`);
+                logger.info(`Open up https://localhost:${port}/ in your browser.`);
             }
         });
 }

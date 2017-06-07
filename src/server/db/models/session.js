@@ -18,4 +18,8 @@ export default class Session extends Model {
             }
         }
     }
+
+    chatMessages() {
+        return this.hasMany('ChatMessage');
+    }
 }

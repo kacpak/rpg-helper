@@ -1,5 +1,10 @@
 import socketIo from 'socket.io';
 import SocketIoJwt from 'socketio-jwt';
+import User from '../db/models/user';
+import chatSupport from './chat';
+import {getLogger} from '../logger';
+
+const logger = getLogger('SOCKET');
 
 export function init(https) {
     const io = socketIo(https, {
@@ -11,7 +16,17 @@ export function init(https) {
             secret: process.env.SECRET,
             callback: 15000
         }))
-        .on('authenticated', socket => {
-            console.log(`New user (id: ${socket.decoded_token.id}) connected.`);
+        .on('authenticated', async socket => {
+            const user = await User.findById(socket.decoded_token.id);
+            socket._user = user;
+
+            logger.info(`New user '${user.attributes.login}' connected.`);
+
+            socket
+                .on('disconnect', () => {
+                    logger.info(`User '${user.attributes.login}' disconnected.`);
+                });
+
+            chatSupport(io, socket);
         });
 }

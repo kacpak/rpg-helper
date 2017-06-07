@@ -1,6 +1,6 @@
 {
   "name": "rpg-helper",
-  "version": "0.0.2",
+  "version": "0.3.0",
   "main": "dist/server/index.js",
   "repository": "https://github.com/kacpak/rpg-helper.git",
   "author": "Mateusz Kasprzak <kacpak@gmail.com>",
@@ -17,6 +17,7 @@
     "test": "run-s test:*",
     "test:lint": "eslint src"
   },
+  "preferGlobal": true,
   "bin": {
     "rpg-helper": "./cli.js"
   },
@@ -45,7 +46,9 @@
     "socket.io": "^2.0.1",
     "socketio-jwt": "^4.5.0",
     "spdy": "^3.4.7",
+    "split": "^1.0.0",
     "sqlite3": "^3.1.8",
+    "winston": "^2.3.1",
     "yargs": "^8.0.1"
   },
   "devDependencies": {
