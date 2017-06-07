@@ -22,6 +22,9 @@
     "full-publish": "np"
   },
   "preferGlobal": true,
+  "engines": {
+    "node": "^7.10.0"
+  },
   "bin": {
     "rpg-helper": "./cli.js"
   },
