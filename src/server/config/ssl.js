@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import paths from '../paths';
+import paths from './paths';
 
 const files = {
     key: path.join(paths.sslCert, 'private.key'),

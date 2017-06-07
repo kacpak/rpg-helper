@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import User from '../db/models/user';
-import { authenticate } from '../auth';
-import { getLogger } from '../logger';
+import { getUserByLogin, insertUser } from '../db/models/user.model';
+import { authenticate } from '../config/auth';
+import { getLogger } from '../config/logger';
 
 const logger = getLogger('AUTH');
 
@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post('/login', async (req, res) => {
     try {
-        const user = (await User.query().where('login', '=', req.body.login))[0];
+        const user = await getUserByLogin(req.body.login);
         if (await bcrypt.compare(req.body.password, user.password)) {
             const token = jwt.sign(
                 {
@@ -24,7 +24,7 @@ router.post('/login', async (req, res) => {
             return res.json({user, token});
         }
     } catch (err) {
-        // 401
+        logger.debug(err);
     }
     logger.error(`User login rejected: ${req.body.login}`);
     return res.sendStatus(401);
@@ -33,21 +33,22 @@ router.post('/login', async (req, res) => {
 router.get('/me', authenticate(), (req, res) => res.json(req.user));
 
 router.get('/logout', authenticate(), (req, res) => {
-    logger.info(`User logged out: ${req.user.attributes.login}`);
+    logger.info(`User logged out: ${req.user.login}`);
     req.logout();
     res.redirect('/');
 });
 
 router.post('/register', async (req, res) => {
     try {
-        await User.query().insert({
+        await insertUser({
             login: req.body.login,
             password: await bcrypt.hash(req.body.password, 10)
         });
         logger.info(`New user registered: ${req.body.login}`);
         res.sendStatus(200);
     } catch (e) {
-        logger.info(`New user registration failure: ${req.body.login}`);
+        logger.error(`New user registration failure: ${req.body.login}`);
+        logger.debug(e);
         res.status(403).send(e);
     }
 });

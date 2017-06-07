@@ -1,6 +1,6 @@
 import knex from 'knex';
 import {Model} from 'objection';
-import {getLogger} from '../logger';
+import {getLogger} from '../config/logger';
 
 const logger = getLogger('DATABASE');
 

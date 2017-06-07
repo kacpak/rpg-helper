@@ -1,5 +1,5 @@
 import path from 'path';
-import paths from '../paths';
+import paths from '../config/paths';
 
 const base = {
     client: 'sqlite3',

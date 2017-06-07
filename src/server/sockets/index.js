@@ -1,8 +1,8 @@
 import socketIo from 'socket.io';
 import SocketIoJwt from 'socketio-jwt';
-import User from '../db/models/user';
-import chatSupport from './chat';
-import {getLogger} from '../logger';
+import {getUserById} from '../db/models/user.model';
+import chatSupport from './chat.socket';
+import {getLogger} from '../config/logger';
 
 const logger = getLogger('SOCKET');
 
@@ -17,16 +17,15 @@ export function init(https) {
             callback: 15000
         }))
         .on('authenticated', async socket => {
-            const user = await User.findById(socket.decoded_token.id);
+            const user = await getUserById(socket.decoded_token.id);
             socket._user = user;
+            logger.info(`New user '${user.login}' connected.`);
 
-            logger.info(`New user '${user.attributes.login}' connected.`);
+            chatSupport(io, socket);
 
             socket
                 .on('disconnect', () => {
-                    logger.info(`User '${user.attributes.login}' disconnected.`);
+                    logger.info(`User '${user.login}' disconnected.`);
                 });
-
-            chatSupport(io, socket);
         });
 }
