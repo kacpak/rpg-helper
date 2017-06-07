@@ -15,7 +15,10 @@
     "build:compile-server": "babel src --out-dir dist --ignore app",
     "build:compile-app": "webpack --config dist/server/config/webpack.config.js",
     "test": "run-s test:*",
-    "test:lint": "eslint src"
+    "test:lint": "eslint src",
+
+    "version": "yarn run build",
+    "full-publish": "np"
   },
   "preferGlobal": true,
   "bin": {
@@ -68,6 +71,7 @@
     "html-webpack-plugin": "^2.28.0",
     "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
+    "np": "^2.16.0",
     "npm-run-all": "^4.0.2",
     "rimraf": "^2.6.1",
     "sass-loader": "^6.0.5",
