@@ -1,6 +1,5 @@
-import moment from 'moment';
 import path from 'path';
-import {Model} from 'objection';
+import Model from './_timestamped.model';
 
 export default class Session extends Model {
     static tableName = 'session';
@@ -30,7 +29,7 @@ export default class Session extends Model {
 }
 
 export function createSessionForUser(user, session) {
-    const newSession = Object.assign({ created_at: moment().format('YYYY-MM-DD HH:mm:ss'), is_active: 1, is_game_master: 1 }, session);
+    const newSession = Object.assign({ is_active: 1, is_game_master: 1 }, session);
     return user
         .$relatedQuery('sessions')
         .insertGraph(newSession);

@@ -22,4 +22,8 @@ export default class ChatMessage extends Model {
             }
         }
     };
+
+    $beforeInsert() {
+        this.sent_at = new Date().toISOString();
+    }
 }

@@ -1,7 +1,6 @@
-import moment from 'moment';
 import omit from 'lodash.omit';
 import path from 'path';
-import {Model} from 'objection';
+import Model from './_timestamped.model';
 
 export default class User extends Model {
     static tableName = 'user';
@@ -41,6 +40,5 @@ export function getUserByLogin(login) {
 }
 
 export function insertUser(user) {
-    const newUser = Object.assign({ created_at: moment().format('YYYY-MM-DD HH:mm:ss') }, user);
-    return User.query().insert(newUser);
+    return User.query().insert(user);
 }
