@@ -1,6 +1,6 @@
 export function up(knex) {
-    return knex.schema.createTableIfNotExists('users', table => {
-        table.increments().primary();
+    return knex.schema.createTableIfNotExists('user', table => {
+        table.bigIncrements();
         table.string('login').unique();
         table.string('password');
         table.timestamps();
@@ -8,5 +8,5 @@ export function up(knex) {
 }
 
 export function down(knex) {
-    return knex.schema.dropTable('users');
+    return knex.schema.dropTable('user');
 }

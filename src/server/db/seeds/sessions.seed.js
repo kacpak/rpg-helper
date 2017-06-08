@@ -1,17 +1,17 @@
 export async function seed(knex) {
-    await knex('sessions').del();
-    await knex('sessions').insert([
-        {id: 1, name: 'Kamyk D&D', description: 'Wiekopomna sesja prowadzona przez Kamyka', active: 1},
-        {id: 2, name: 'DR D&D', description: 'Lochy Dominika', active: 1},
-        {id: 3, name: 'Naruto', description: 'Ninja w Lochach', active: 0}
+    await knex('session').del();
+    await knex('session').insert([
+        { id: 1, name: 'Kamyk D&D', description: 'Wiekopomna sesja prowadzona przez Kamyka', is_active: 1, created_at: knex.fn.now() },
+        { id: 2, name: 'DR D&D', description: 'Lochy Dominika', is_active: 1, created_at: knex.fn.now() },
+        { id: 3, name: 'Naruto', description: 'Ninja w Lochach', is_active: 0, created_at: knex.fn.now() }
     ]);
 
-    await knex('sessions_users').del();
-    await knex('sessions_users').insert([
-        {id: 1, user_id: 1, session_id: 1 },
-        {id: 2, user_id: 1, session_id: 2 },
-        {id: 3, user_id: 1, session_id: 3 },
-        {id: 4, user_id: 2, session_id: 3 },
-        {id: 5, user_id: 2, session_id: 2 },
+    await knex('character_session_user').del();
+    await knex('character_session_user').insert([
+        { user_id: 1, session_id: 1, is_game_master: 1 },
+        { user_id: 1, session_id: 2, is_game_master: 0 },
+        { user_id: 1, session_id: 3, is_game_master: 1 },
+        { user_id: 2, session_id: 2, is_game_master: 1 },
+        { user_id: 2, session_id: 3, is_game_master: 0 },
     ]);
 }

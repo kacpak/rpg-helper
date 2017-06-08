@@ -1,36 +1,37 @@
+import moment from 'moment';
 import path from 'path';
 import {Model} from 'objection';
 
 export default class Session extends Model {
-    static tableName = 'sessions';
+    static tableName = 'session';
 
     static relationMappings = {
         users: {
             relation: Model.ManyToManyRelation,
             modelClass: path.join(__dirname, 'user.model'),
             join: {
-                from: 'sessions.id',
+                from: 'session.id',
                 through: {
-                    from: 'sessions_users.session_id',
-                    to: 'sessions_users.user_id'
+                    from: 'character_session_user.session_id',
+                    to: 'character_session_user.user_id'
                 },
-                to: 'users.id'
+                to: 'user.id'
             }
         },
         chatMessages: {
             relation: Model.HasManyRelation,
             modelClass: path.join(__dirname, 'chat-message.model'),
             join: {
-                from: 'sessions.id',
-                to: 'chat.session_id'
+                from: 'session.id',
+                to: 'chat_message.session_id'
             }
         }
     };
 }
 
 export function createSessionForUser(user, session) {
-    const newSession = Object.assign({ created_at: Date.now(), active: 1 }, session);
+    const newSession = Object.assign({ created_at: moment().format('YYYY-MM-DD HH:mm:ss'), is_active: 1, is_game_master: 1 }, session);
     return user
         .$relatedQuery('sessions')
-        .insert(newSession);
+        .insertGraph(newSession);
 }

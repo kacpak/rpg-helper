@@ -1,5 +1,4 @@
 import ChatMessage from '../db/models/chat-message.model';
-import Session from '../db/models/session.model';
 import {getLogger} from '../config/logger';
 
 const logger = getLogger('SOCKET/CHAT');
@@ -14,10 +13,10 @@ export default function initSession(io, socket) {
 
             let session, messages;
             try {
-                session = await socket._user.$relatedQuery('sessions').where('id', details.session_id);
+                session = await socket._user.$relatedQuery('sessions').where('session.id', details.session_id).first();
                 messages = await session.$relatedQuery('chatMessages').$loadRelated('sender');
             } catch (err) {
-                logger.error(`There was an error fetching data for user ${socket._user.login}, session ${details.session_id}`);
+                logger.error(`There was an error fetching data for user ${socket._user.login}, session id ${details.session_id}`);
                 logger.debug(err);
                 socket.disconnect();
                 return;
@@ -25,6 +24,7 @@ export default function initSession(io, socket) {
             socket.emit('chat', messages);
 
             socket.on('chat/message', async messageContent => {
+                // TODO update insert to objection.js
                 const message = await ChatMessage.create({
                     message: messageContent,
                     sent_at: Date.now(),

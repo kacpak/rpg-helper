@@ -8,8 +8,8 @@ export default {
         current: null
     },
     getters: {
-        active: state => state.sessions.filter(session => session.active),
-        finished: state => state.sessions.filter(session => !session.active)
+        active: state => state.sessions.filter(session => session.is_active),
+        finished: state => state.sessions.filter(session => !session.is_active)
     },
     mutations: {
         [SET_SESSIONS](state, sessions) {
