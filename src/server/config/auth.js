@@ -10,7 +10,7 @@ export function init(app) {
 
     passport.use(new JwtStrategy(options, async (jwtPayload, done) => {
         try {
-            const user = await User.getById(jwtPayload.id);
+            const user = await User.findById(jwtPayload.id);
             if (user) {
                 return done(null, user);
             }

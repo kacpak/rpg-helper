@@ -17,7 +17,7 @@ export function init(https) {
             callback: 15000
         }))
         .on('authenticated', async socket => {
-            const user = await User.getById(socket.decoded_token.id);
+            const user = await User.findById(socket.decoded_token.id);
             socket._user = user;
             logger.info(`New user '${user.login}' connected.`);
 

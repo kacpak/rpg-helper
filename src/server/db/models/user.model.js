@@ -25,11 +25,11 @@ export default class User extends Model {
         }
     };
 
-    static getById(id) {
+    static findById(id) {
         return User.query().where('id', id).first();
     }
 
-    static getByLogin(login) {
+    static findByLogin(login) {
         return User.query().where('login', login).first();
     }
 
@@ -38,7 +38,7 @@ export default class User extends Model {
         return omit(json, User.$secureFields);
     }
 
-    getSession(sessionId) {
+    findSession(sessionId) {
         return this.$relatedQuery('sessions').where('session.id', sessionId).first();
     }
 

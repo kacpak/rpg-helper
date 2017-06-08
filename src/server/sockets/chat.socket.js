@@ -17,7 +17,7 @@ export default function initSession(io, socket) {
 
             let session, messages;
             try {
-                session = await socket._user.getSession(details.session_id);
+                session = await socket._user.findSession(details.session_id);
                 messages = await session.getChatMessages();
             } catch (err) {
                 logger.error(`There was an error fetching data for user ${socket._user.login}, session id ${details.session_id}`);
