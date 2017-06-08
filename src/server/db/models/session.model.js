@@ -26,11 +26,12 @@ export default class Session extends Model {
             }
         }
     };
-}
 
-export function createSessionForUser(user, session) {
-    const newSession = Object.assign({ is_active: 1, is_game_master: 1 }, session);
-    return user
-        .$relatedQuery('sessions')
-        .insertGraph(newSession);
+    getChatMessages() {
+        return this.$relatedQuery('chatMessages').eager('sender(selectIdName)', {
+            selectIdName(builder) {
+                builder.select('id', 'login');
+            }
+        });
+    }
 }

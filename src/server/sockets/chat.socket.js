@@ -11,10 +11,14 @@ export default function initSession(io, socket) {
             socket.join(socket._roomName);
             logger.info(`${socket._user.login} joined ${socket._roomName}`);
 
+            socket.on('disconnect', () => {
+                logger.info(`${socket._user.login} left ${socket._roomName}`);
+            });
+
             let session, messages;
             try {
-                session = await socket._user.$relatedQuery('sessions').where('session.id', details.session_id).first();
-                messages = await session.$relatedQuery('chatMessages').$loadRelated('sender');
+                session = await socket._user.getSession(details.session_id);
+                messages = await session.getChatMessages();
             } catch (err) {
                 logger.error(`There was an error fetching data for user ${socket._user.login}, session id ${details.session_id}`);
                 logger.debug(err);
@@ -24,12 +28,11 @@ export default function initSession(io, socket) {
             socket.emit('chat', messages);
 
             socket.on('chat/message', async messageContent => {
-                // TODO update insert to objection.js
-                const message = await ChatMessage.create({
+                const message = await ChatMessage.query().insert({
                     message: messageContent,
-                    sent_at: Date.now(),
                     session_id: socket._details.session_id,
-                    sender_id: socket._user.id
+                    user_id: socket._user.id,
+                    character_id: socket._user.id
                 });
 
                 logger.info(`User ${socket._user.login} sent message in ${session.id}:${session.name}`);
@@ -40,9 +43,6 @@ export default function initSession(io, socket) {
                     },
                     sent_at: message.sent_at
                 });
-            });
-            socket.on('disconnect', () => {
-                logger.info(`${socket._user.login} left ${socket._roomName}`);
             });
         });
 }

@@ -25,20 +25,27 @@ export default class User extends Model {
         }
     };
 
+    static getById(id) {
+        return User.query().where('id', id).first();
+    }
+
+    static getByLogin(login) {
+        return User.query().where('login', login).first();
+    }
+
     $formatJson(json, options) {
         json = super.$formatJson(json, options);
         return omit(json, User.$secureFields);
     }
-}
 
-export function getUserById(id) {
-    return User.query().where('id', id).first();
-}
+    getSession(sessionId) {
+        return this.$relatedQuery('sessions').where('session.id', sessionId).first();
+    }
 
-export function getUserByLogin(login) {
-    return User.query().where('login', login).first();
-}
-
-export function insertUser(user) {
-    return User.query().insert(user);
+    createSession(sessionDetails) {
+        const newSession = Object.assign({ is_active: 1, is_game_master: 1 }, sessionDetails);
+        return this
+            .$relatedQuery('sessions')
+            .insertGraph(newSession);
+    }
 }

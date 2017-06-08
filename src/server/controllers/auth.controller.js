@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import { getUserByLogin, insertUser } from '../db/models/user.model';
+import User from '../db/models/user.model';
 import { authenticate } from '../config/auth';
 import { getLogger } from '../config/logger';
 
@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post('/login', async (req, res) => {
     try {
-        const user = await getUserByLogin(req.body.login);
+        const user = await User.getByLogin(req.body.login);
         if (await bcrypt.compare(req.body.password, user.password)) {
             const token = jwt.sign(
                 {
@@ -40,7 +40,7 @@ router.get('/logout', authenticate(), (req, res) => {
 
 router.post('/register', async (req, res) => {
     try {
-        await insertUser({
+        await User.query().insert({
             login: req.body.login,
             password: await bcrypt.hash(req.body.password, 10)
         });

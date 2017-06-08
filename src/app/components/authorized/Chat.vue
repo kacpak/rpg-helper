@@ -40,7 +40,7 @@
                 .on('chat/message', message => this.$store.commit(ADD_MESSAGE, message));
         },
         beforeDestroy() {
-            this.socket.emit('disconnect');
+            this.socket.disconnect();
         },
         computed: {
             messages() {

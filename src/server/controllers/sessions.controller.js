@@ -1,5 +1,4 @@
 import express from 'express';
-import { createSessionForUser } from '../db/models/session.model';
 import { authenticate } from '../config/auth';
 import { getLogger } from '../config/logger';
 
@@ -14,7 +13,7 @@ router.get('/sessions', authenticate(), async (req, res) => {
 
 router.post('/sessions', authenticate(), async (req, res) => {
     try {
-        const session = await createSessionForUser(req.user, {
+        const session = await req.user.createSession({
             name: req.body.name,
             description: req.body.description
         });

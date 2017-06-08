@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { Strategy as JwtStrategy, ExtractJwt} from 'passport-jwt';
-import { getUserById } from '../db/models/user.model';
+import User from '../db/models/user.model';
 
 export function init(app) {
     const options = {
@@ -10,7 +10,7 @@ export function init(app) {
 
     passport.use(new JwtStrategy(options, async (jwtPayload, done) => {
         try {
-            const user = await getUserById(jwtPayload.id);
+            const user = await User.getById(jwtPayload.id);
             if (user) {
                 return done(null, user);
             }
