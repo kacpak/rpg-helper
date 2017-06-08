@@ -8,14 +8,14 @@ import historyApiFallback from 'express-history-api-fallback';
 import http from 'http';
 import spdy from 'spdy';
 
-import paths from './paths';
-import * as auth from './auth';
+import paths from './config/paths';
+import * as auth from './config/auth';
 import * as db from './db/index';
 import * as sockets from './sockets/index';
-import authController from './controllers/auth';
-import sessionsController from './controllers/sessions';
+import authController from './controllers/auth.controller';
+import sessionsController from './controllers/sessions.controller';
 import { credentials } from './config/ssl';
-import initLogger, {getLogger} from './logger';
+import initLogger, {getLogger} from './config/logger';
 
 const logger = getLogger('MAIN');
 

@@ -3,7 +3,7 @@ dotenv.config();
 
 import path from 'path';
 import mkdirp from 'mkdirp';
-const root = path.resolve(__dirname, '../..');
+const root = path.resolve(__dirname, '../../..');
 const dist = path.resolve(root, 'dist');
 
 const paths = {

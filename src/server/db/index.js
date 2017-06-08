@@ -1,17 +1,13 @@
 import knex from 'knex';
-import bookshelf from 'bookshelf';
-import {pluggable as ModelBase} from 'bookshelf-modelbase';
-import {getLogger} from '../logger';
+import {Model} from 'objection';
+import {getLogger} from '../config/logger';
 
 const logger = getLogger('DATABASE');
 
 import * as config from './config';
 
 const Knex = knex(config[process.env.NODE_ENV || 'development']);
-const Bookshelf = bookshelf(Knex);
-Bookshelf.plugin('registry');
-Bookshelf.plugin('visibility');
-Bookshelf.plugin(ModelBase);
+Model.knex(Knex);
 
 export async function migrate() {
     try {
@@ -30,5 +26,3 @@ export async function migrate() {
         throw err;
     }
 }
-
-export default Bookshelf;
