@@ -1,11 +1,13 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+import path from 'path';
 import webpack from 'webpack';
 import webpackMerge from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import BabiliPlugin from 'babili-webpack-plugin';
+import FaviconsPlugin from 'favicons-webpack-plugin';
 
 import paths from './paths';
 
@@ -79,6 +81,32 @@ const baseConfig = {
             $: 'jquery/dist/jquery.slim.js',
             jQuery: 'jquery/dist/jquery.slim.js',
             Tether: 'tether'
+        }),
+        new FaviconsPlugin({
+            logo: path.join(paths.root, 'src/app/assets/', isProduction ? 'rpg-logo.svg' : 'rpg-logo-dev.svg'),
+            emitStats: true,
+            // The name of the json containing all favicon information
+            statsFilename: 'iconstats-[hash].json',
+            persistentCache: true,
+            inject: true,
+            // favicon background color (see https://github.com/haydenbleasel/favicons#usage)
+            background: '#fff',
+            // favicon app title (see https://github.com/haydenbleasel/favicons#usage)
+            title: 'RPG Helper',
+
+            // which icons should be generated (see https://github.com/haydenbleasel/favicons#usage)
+            icons: {
+                android: true,
+                appleIcon: true,
+                appleStartup: true,
+                coast: false,
+                favicons: true,
+                firefox: true,
+                opengraph: false,
+                twitter: false,
+                yandex: false,
+                windows: false
+            }
         })
     ]
 };
