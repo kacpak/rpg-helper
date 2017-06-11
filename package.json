@@ -1,6 +1,6 @@
 {
   "name": "rpg-helper",
-  "version": "0.3.0",
+  "version": "0.4.0-beta.1",
   "main": "dist/server/index.js",
   "repository": "https://github.com/kacpak/rpg-helper.git",
   "author": "Mateusz Kasprzak <kacpak@gmail.com>",
