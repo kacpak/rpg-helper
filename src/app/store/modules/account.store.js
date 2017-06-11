@@ -1,4 +1,4 @@
-import User from '../../api/user';
+import User from '../../api/user.api';
 import {AUTHENTICATE, UNAUTHENTICATE} from '../mutation-types';
 
 export default {

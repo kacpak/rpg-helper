@@ -48,4 +48,11 @@ export default class User extends Model {
             .$relatedQuery('sessions')
             .insertGraph(newSession);
     }
+
+    joinSession(sessionId) {
+        return this.$relatedQuery('sessions').relate({
+            id: sessionId,
+            is_game_master: false
+        });
+    }
 }

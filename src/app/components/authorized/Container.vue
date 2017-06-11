@@ -32,8 +32,5 @@
         > *:first-child {
             flex: 1;
         }
-        a {
-            text-decoration: none;
-        }
     }
 </style>

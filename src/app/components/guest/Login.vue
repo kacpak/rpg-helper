@@ -7,7 +7,7 @@
                     <input type="text" class="form-control" placeholder="Login"
                            name="login" id="login"
                            v-model="login"
-                           v-validate="'required'"
+                           v-validate="'required|min:3'"
                     >
                     <div v-if="errors.has('login')" class="form-control-feedback">{{ errors.first('login') }}</div>
                 </div>

@@ -7,6 +7,7 @@ import VueResource from 'vue-resource';
 import VeeValidate from 'vee-validate';
 import { sync } from 'vuex-router-sync';
 import './directives/v-chat-scroll';
+import './directives/v-focus';
 
 import App from './components/App.vue';
 import store from './store';

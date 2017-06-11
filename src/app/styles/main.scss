@@ -1,2 +1,8 @@
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
+
+h1 a {
+    &, &:hover, &:focus {
+        text-decoration: none;
+    }
+}

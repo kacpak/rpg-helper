@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import account from './modules/account';
-import sessions from './modules/sessions';
-import chat from './modules/chat';
+import account from './modules/account.store';
+import sessions from './modules/sessions.store';
+import chat from './modules/chat.store';
 
 Vue.use(Vuex);
 

@@ -1,4 +1,4 @@
-import Session from '../../api/session';
+import Session from '../../api/session.api';
 import {SET_SESSIONS, SET_CURRENT_SESSION} from '../mutation-types';
 
 export default {
@@ -33,6 +33,15 @@ export default {
                 .then(response => response.body)
                 .then(sessions => commit(SET_SESSIONS, sessions))
                 .catch(console.error);
+        },
+        fetchNewCurrent({commit}, id) {
+            return Session.fetch({ id, detailed: true })
+                .then(response => response.body)
+                .then(session => commit(SET_CURRENT_SESSION, session))
+                .catch(err => {
+                    console.error(err);
+                    throw err;
+                });
         }
     }
 };

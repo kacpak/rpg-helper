@@ -7,7 +7,7 @@ export function getSocket(initEvent, details) {
         socket
             .emit('authenticate', { token: store.state.account.token })
             .on('authenticated', () => {
-                console.log('Socket authenticated');
+                console.info('Socket authenticated');
                 socket.emit(initEvent, details);
             })
             .on('unauthorized', msg => {

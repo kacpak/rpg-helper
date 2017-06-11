@@ -41,6 +41,7 @@
         },
         beforeDestroy() {
             this.socket.disconnect();
+            console.info('Chat socket disconnected');
         },
         computed: {
             messages() {

@@ -45,10 +45,3 @@
         }
     }
 </script>
-<style lang="scss">
-    .header {
-        a {
-            text-decoration: none;
-        }
-    }
-</style>
