@@ -27,6 +27,18 @@ export default class Session extends Model {
         }
     };
 
+    static jsonSchema = {
+        type: 'object',
+        required: ['name'],
+
+        properties: {
+            id: { type: 'integer' },
+            name: { type: 'string', minLength: 3, maxLength: 255 },
+            description: { type: 'string' },
+            is_active: { type: 'boolean' }
+        }
+    };
+
     getChatMessages() {
         return this.$relatedQuery('chatMessages').eager('sender(selectIdName)', {
             selectIdName(builder) {

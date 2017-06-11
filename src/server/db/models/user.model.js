@@ -25,6 +25,19 @@ export default class User extends Model {
         }
     };
 
+    static jsonSchema = {
+        type: 'object',
+        required: ['login', 'password'],
+
+        properties: {
+            id: { type: 'integer' },
+            login: { type: 'string', minLength: 3, maxLength: 255 },
+            password: { type: 'string', maxLength: 255 },
+            created_at: { type: 'string' },
+            updated_at: { type: 'string' }
+        }
+    };
+
     static findById(id) {
         return User.query().where('id', id).first();
     }
@@ -43,7 +56,7 @@ export default class User extends Model {
     }
 
     createSession(sessionDetails) {
-        const newSession = Object.assign({ is_active: 1, is_game_master: 1 }, sessionDetails);
+        const newSession = Object.assign({ is_active: true, is_game_master: true }, sessionDetails);
         return this
             .$relatedQuery('sessions')
             .insertGraph(newSession);

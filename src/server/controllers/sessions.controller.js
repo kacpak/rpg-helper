@@ -27,8 +27,12 @@ router.get('/sessions/:id', authenticate(), async (req, res) => {
 });
 
 router.post('/sessions/:id/invite', authenticate(), async (req, res) => {
-    // TODO check if user is game master for this session
     try {
+        const userSession = await req.user.findSession(req.params.id);
+        if (!userSession.is_game_master) {
+            throw 'Only Game Master can invite users to session';
+        }
+
         const user = await User.findByLogin(req.body.login);
         res.json(await user.joinSession(req.params.id));
     } catch (err) {

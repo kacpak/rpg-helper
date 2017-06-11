@@ -23,6 +23,20 @@ export default class ChatMessage extends Model {
         }
     };
 
+    static jsonSchema = {
+        type: 'object',
+        required: ['user_id', 'session_id', 'message'],
+
+        properties: {
+            id: { type: 'integer' },
+            user_id: { type: 'integer' },
+            character_id: { type: 'integer' },
+            session_id: { type: 'integer' },
+            message: { type: 'string', minLength: 1 },
+            sent_at: { type: 'string' },
+        }
+    };
+
     $beforeInsert() {
         this.sent_at = new Date().toISOString();
     }

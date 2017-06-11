@@ -28,21 +28,26 @@ export default function initSession(io, socket) {
             socket.emit('chat', messages);
 
             socket.on('chat/message', async messageContent => {
-                const message = await ChatMessage.query().insert({
-                    message: messageContent,
-                    session_id: socket._details.session_id,
-                    user_id: socket._user.id,
-                    character_id: socket._user.id
-                });
+                try {
+                    const message = await ChatMessage.query().insert({
+                        message: messageContent,
+                        session_id: socket._details.session_id,
+                        user_id: socket._user.id,
+                        character_id: socket._user.id
+                    });
 
-                logger.info(`User ${socket._user.login} sent message in ${session.id}:${session.name}`);
-                io.to(socket._roomName).emit('chat/message', {
-                    message: message.message,
-                    sender: {
-                        login: socket._user.login
-                    },
-                    sent_at: message.sent_at
-                });
+                    logger.info(`User ${socket._user.login} sent message in ${session.id}:${session.name}`);
+                    io.to(socket._roomName).emit('chat/message', {
+                        message: message.message,
+                        sender: {
+                            login: socket._user.login
+                        },
+                        sent_at: message.sent_at
+                    });
+                } catch (err) {
+                    logger.debug(err);
+                    logger.error(`User ${socket._user.login} couldn't send message in ${session.id}:${session.name}`);
+                }
             });
         });
 }
