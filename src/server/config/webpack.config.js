@@ -53,7 +53,8 @@ const baseConfig = {
                         scss: ExtractTextPlugin.extract({
                             use: ['css-loader', 'sass-loader'],
                             fallback: 'vue-style-loader'
-                        })
+                        }),
+                        i18n: '@kazupon/vue-i18n-loader'
                     },
                     extractCSS: isProduction
                 }

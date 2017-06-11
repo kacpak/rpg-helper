@@ -7,10 +7,10 @@
             <div class="card-header">
                 <ul class="nav nav-pills card-header-pills">
                     <li class="nav-item">
-                        <router-link :to="{ name: 'login' }" active-class="active" class="nav-link">Logowanie</router-link>
+                        <router-link :to="{ name: 'login' }" active-class="active" class="nav-link">{{ $t('auth.login.title') }}</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link :to="{ name: 'register' }" active-class="active" class="nav-link">Rejestracja</router-link>
+                        <router-link :to="{ name: 'register' }" active-class="active" class="nav-link">{{ $t('auth.registration.title') }}</router-link>
                     </li>
                 </ul>
             </div>

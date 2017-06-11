@@ -1,10 +1,10 @@
 <template>
     <div class="dashboard p-2">
         <header class="d-sm-flex align-items-center">
-            <h2 class="mr-auto">Dashboard</h2>
-            <router-link :to="{ name: 'session/create' }" class="btn btn-primary" role="button">Nowa sesja</router-link>
+            <h2 class="mr-auto">{{ $t('dashboard.title') }}</h2>
+            <router-link :to="{ name: 'session/create' }" class="btn btn-primary" role="button">{{ $t('dashboard.createNewSession') }}</router-link>
         </header>
-        <h3>Aktywne sesje</h3>
+        <h3>{{ $t('dashboard.activeSessions') }}</h3>
         <div class="sessions-list row">
             <div v-for="session in activeSessions" class="col-md-3">
                 <div class="session">
@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <h3>Ukończone sesje</h3>
+        <h3>{{ $t('dashboard.finishedSessions') }}</h3>
         <div class="sessions-list row">
             <div v-for="session in finishedSessions" class="col-md-3">
                 <div class="session">

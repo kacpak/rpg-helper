@@ -1,0 +1,34 @@
+{
+    "auth": {
+        "welcome": "Witaj, {name}!",
+        "logout": "Wyloguj się",
+
+        "login": {
+            "field": "Login",
+            "title": "Logowanie",
+            "submit": "Zaloguj się",
+            "error": "Niepoprawna nazwa użytkownika lub hasło"
+        },
+
+        "password": {
+            "field": "Hasło",
+            "confirm": "Potwierdź hasło",
+            "error": "Hasła nie są takie same!"
+        },
+
+        "registration": {
+            "title": "Rejestracja",
+            "submit": "Zarejestruj się",
+            "errors": {
+                "general": "Wystąpił problem podczas rejestracji. Spróbuj ponownie później",
+                "usernameTaken": "Użytkownik o podanym loginie już istnieje."
+            }
+        }
+    },
+    "dashboard": {
+        "title": "Dashboard",
+        "activeSessions": "Aktywne sesje",
+        "finishedSessions": "Ukończone sesje",
+        "createNewSession": "Nowa sesja"
+    }
+}

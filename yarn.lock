@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@kazupon/vue-i18n-loader@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@kazupon/vue-i18n-loader/-/vue-i18n-loader-0.1.1.tgz#bffcf8aa977adf66d22a9208f244b8acd694ba20"
+
 abbrev@1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.0.tgz#d0554c2256636e2f56e7c2e5ad183f859428d81f"
@@ -6299,6 +6303,10 @@ vm-browserify@0.0.4:
 vue-hot-reload-api@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.1.0.tgz#9ca58a6e0df9078554ce1708688b6578754d86de"
+
+vue-i18n@^7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-7.0.2.tgz#60274c38d381d3388467b48d30870eda8fe23b12"
 
 vue-loader@^12.1.0:
   version "12.2.1"
