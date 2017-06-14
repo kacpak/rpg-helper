@@ -39,6 +39,24 @@ const baseConfig = {
                 exclude: /node_modules/
             },
             {
+                test: /\.(otf|eot|svg|ttf|woff2?)$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 8192,
+                    name: 'fonts/[name].[hash].[ext]'
+                },
+                include: /font/
+            },
+            {
+                test: /\.(png|jpe?g|gif|svg)$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 8192,
+                    name: 'images/[name].[hash].[ext]'
+                },
+                exclude: /font/
+            },
+            {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
@@ -73,7 +91,7 @@ const baseConfig = {
             template: './src/app/index.html'
         }),
         new ExtractTextPlugin({
-            filename: '[name].[contenthash].css',
+            filename: 'stylesheets/[name].[contenthash].css',
             disable: !isProduction
         }),
         new webpack.ProvidePlugin({

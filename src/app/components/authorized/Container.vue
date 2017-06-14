@@ -2,7 +2,7 @@
     <div class="container">
         <div class="header">
             <h1 class="display-4"><router-link :to="{ name: 'home' }">RPG Helper</router-link></h1>
-            <div>{{ $t('auth.welcome', { name: loggedInUser }) }} <button @click="logout" type="button" class="btn btn-secondary">{{ $t('auth.logout') }}</button></div>
+            <div>{{ $t('auth.welcome', { name: loggedInUser }) }} <button @click="logout" type="button" class="btn btn-secondary"><i class="fa fa-sign-out" aria-hidden="true"></i> {{ $t('auth.logout') }}</button></div>
         </div>
         <router-view></router-view>
     </div>

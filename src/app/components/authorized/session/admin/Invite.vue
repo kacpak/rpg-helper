@@ -1,6 +1,9 @@
 <template>
     <div class="invite-user-container">
-        <h2>Dodaj do sesji</h2>
+        <h2>
+            <router-link :to="{ name: 'session/admin' }"><i class="fa fa-times" aria-hidden="true"></i></router-link>
+            Dodaj do sesji
+        </h2>
         <form @submit.prevent="onSubmit">
             <fieldset :disabled="inProgress">
                 <div class="form-group" :class="{'has-danger': errors.has('login')}">
