@@ -73,7 +73,7 @@ const baseConfig = {
             template: './src/app/index.html'
         }),
         new ExtractTextPlugin({
-            filename: 'style.css',
+            filename: '[name].[contenthash].css',
             disable: !isProduction
         }),
         new webpack.ProvidePlugin({
@@ -96,9 +96,20 @@ const devBuild = webpackMerge.smart(baseConfig, {
 
 const prodBuild = webpackMerge.smart(baseConfig, {
     devtool: '#source-map',
+    output: {
+        filename: '[name].[chunkhash].js'
+    },
     plugins: [
         new BabiliPlugin(),
         new webpack.LoaderOptionsPlugin({ minimize: true }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            minChunks: module => module.context && module.context.indexOf('node_modules') >= 0,
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'manifest',
+            minChunks: Infinity
+        }),
     ]
 });
 
