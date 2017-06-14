@@ -6,7 +6,7 @@
                 <div class="col-sm-10">
                     <input type="text" class="form-control" :placeholder="$t('auth.login.field')"
                            id="login" name="login"
-                           v-model="login" v-validate="'required|min:3'">
+                           v-model="login" v-validate="'required|min:3'" v-focus>
                     <div v-if="errors.has('login')" class="form-control-feedback">{{ errors.first('login') }}</div>
                 </div>
             </div>

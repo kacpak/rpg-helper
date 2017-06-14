@@ -10,7 +10,7 @@
         </div>
         <form @submit.prevent="sendMessage">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Wiadomość..." v-model="message">
+                <input type="text" class="form-control" placeholder="Wiadomość..." v-model="message" v-focus>
                 <span class="input-group-btn">
                     <button class="btn btn-primary" type="submit">Wyślij</button>
                 </span>

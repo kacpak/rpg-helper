@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
 Vue.directive('focus', {
-    update: (el) => {
+    inserted: (el) => {
         el.focus();
     },
 });
