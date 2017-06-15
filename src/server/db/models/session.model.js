@@ -17,6 +17,42 @@ export default class Session extends Model {
                 to: 'user.id'
             }
         },
+        user: {
+            relation: Model.HasOneThroughRelation,
+            modelClass: path.join(__dirname, 'user.model'),
+            join: {
+                from: 'session.id',
+                through: {
+                    from: 'character_session_user.session_id',
+                    to: 'character_session_user.user_id'
+                },
+                to: 'user.id'
+            }
+        },
+        characters: {
+            relation: Model.HasManyRelation,
+            modelClass: path.join(__dirname, 'character.model'),
+            join: {
+                from: 'session.id',
+                through: {
+                    from: 'character_session_user.session_id',
+                    to: 'character_session_user.character_id'
+                },
+                to: 'character.id'
+            }
+        },
+        character: {
+            relation: Model.HasOneThroughRelation,
+            modelClass: path.join(__dirname, 'character.model'),
+            join: {
+                from: 'session.id',
+                through: {
+                    from: 'character_session_user.session_id',
+                    to: 'character_session_user.character_id'
+                },
+                to: 'character.id'
+            }
+        },
         chatMessages: {
             relation: Model.HasManyRelation,
             modelClass: path.join(__dirname, 'chat-message.model'),

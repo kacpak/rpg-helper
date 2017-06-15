@@ -1,4 +1,4 @@
-import './styles/main.scss';
+import '../styles/main.scss';
 import 'babel-polyfill';
 import 'bootstrap';
 
@@ -7,12 +7,12 @@ import VueI18n from 'vue-i18n';
 import VueResource from 'vue-resource';
 import VeeValidate from 'vee-validate';
 import { sync } from 'vuex-router-sync';
-import messages from './i18n';
-import './directives/v-chat-scroll';
-import './directives/v-focus';
+import messages from '../i18n';
+import '../directives/v-chat-scroll';
+import '../directives/v-focus';
 
-import App from './components/App.vue';
-import store from './store';
+import App from '../App.vue';
+import store from '../store';
 import router from './router';
 sync(store, router);
 

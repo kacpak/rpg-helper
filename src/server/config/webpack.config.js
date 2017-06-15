@@ -23,7 +23,7 @@ const babelOptions = {
 
 const baseConfig = {
     entry: {
-        app: ['./src/app/bootstrap.js']
+        app: ['./src/app/config/main.js']
     },
     output: {
         path: paths.public,

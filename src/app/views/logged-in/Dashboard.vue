@@ -48,7 +48,7 @@
     }
 </script>
 <style lang="scss">
-@import "../../styles/variables";
+@import "../../styles/_variables";
 
 .sessions-list .session {
     & {

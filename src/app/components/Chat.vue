@@ -20,8 +20,8 @@
     </div>
 </template>
 <script>
-    import {getSocket} from '../../api/socket';
-    import {ADD_MESSAGE, SET_MESSAGES} from '../../store/mutation-types';
+    import {getSocket} from '../api/socket';
+    import {ADD_MESSAGE, SET_MESSAGES} from '../store/mutation-types';
 
     export default {
         props: ['id'],

@@ -1,7 +1,5 @@
 <template>
     <div class="game-master-panel">
-        <h1>{{ session.name }}</h1>
-        <p>{{ session.description }}</p>
         <div class="row">
             <div class="panel col-md-5">
                 <h2>Panel</h2>
@@ -36,26 +34,12 @@
 </template>
 <script>
     import store from '../../../../store/index'
-    import ChatComponent from '../../Chat.vue';
+    import ChatComponent from '../../../../components/Chat.vue';
 
     export default {
-        created() {
-        },
         computed: {
             session() {
                 return this.$store.state.sessions.current;
-            }
-        },
-        async beforeRouteEnter(to, from, next) {
-            try {
-                await store.dispatch('sessions/fetchNewCurrent', to.params.id);
-                if (store.state.sessions.current.is_game_master) {
-                    next();
-                } else {
-                    throw 'Unauthorized access to game master section';
-                }
-            } catch(err) {
-                next(false);
             }
         },
         components: {
