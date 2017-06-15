@@ -2,7 +2,10 @@
     <div class="dashboard p-2">
         <header class="d-sm-flex align-items-center">
             <h2 class="mr-auto">{{ $t('dashboard.title') }}</h2>
-            <router-link :to="{ name: 'session/create' }" class="btn btn-primary" role="button"><i class="fa fa-plus" aria-hidden="true"></i> {{ $t('dashboard.createNewSession') }}</router-link>
+            <router-link :to="{ name: 'session/create' }" class="btn btn-primary" role="button">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                {{ $t('dashboard.createNewSession') }}
+            </router-link>
         </header>
         <h3>{{ $t('dashboard.activeSessions') }}</h3>
         <div class="sessions-list row">
