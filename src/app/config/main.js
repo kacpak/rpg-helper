@@ -8,8 +8,8 @@ import VueResource from 'vue-resource';
 import VeeValidate from 'vee-validate';
 import { sync } from 'vuex-router-sync';
 import messages from '../i18n';
-import '../directives/v-chat-scroll';
-import '../directives/v-focus';
+import '../utils/directives/v-chat-scroll';
+import '../utils/directives/v-focus';
 
 import App from '../App.vue';
 import store from '../store';
@@ -32,18 +32,8 @@ const i18n = new VueI18n({
 
 new Vue({
     el: '#app',
-    components: {
-        App
-    },
-    render(createElement) {
-        return createElement(
-            'div',
-            { attrs: { id: 'app'} },
-            [
-                createElement('app')
-            ]
-        );
-    },
+    components: { App },
+    render: h => h('app'),
     store,
     router,
     i18n

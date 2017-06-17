@@ -27,18 +27,15 @@
     </div>
 </template>
 <script>
+    import isFormValid from '../../../utils/mixins/isFormValid';
     export default {
+        mixins: [isFormValid],
         data() {
             return {
                 name: '',
                 description: '',
                 inProgress: false
             };
-        },
-        computed: {
-            isFormValid() {
-                return Object.keys(this.fields).every(key => this.fields[key].valid)
-            }
         },
         methods: {
             onSubmit() {

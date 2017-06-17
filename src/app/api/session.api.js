@@ -32,5 +32,12 @@ export default {
                 Authorization: `JWT ${store.state.account.token}`
             }
         });
+    },
+    createCharacter({sessionId, character}) {
+        return Vue.http.post(`/api/sessions/${sessionId}/character`, { character }, {
+            headers: {
+                Authorization: `JWT ${store.state.account.token}`
+            }
+        });
     }
 };

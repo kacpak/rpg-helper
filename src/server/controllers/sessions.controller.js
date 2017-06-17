@@ -42,6 +42,26 @@ router.post('/sessions/:id/invite', authenticate(), async (req, res) => {
     }
 });
 
+router.post('/sessions/:id/character', authenticate(), async (req, res) => {
+    try {
+        const currentCharacter = await req.user.findCharacterBySessionId(req.params.id);
+        if (currentCharacter) {
+            res.status(400).json({
+                error: true,
+                message: `Character for user id ${req.user.id} and session id ${req.params.id} already exists!`
+            });
+        } else {
+            const newCharacter = await req.user.createCharacter(req.params.id, req.body.character);
+            res.json(newCharacter);
+        }
+
+    } catch (err) {
+        logger.error(`Creating new character for session ${req.params.id} and user ${req.user.login} failed.`);
+        logger.debug(err);
+        res.status(500).send(err);
+    }
+});
+
 router.post('/sessions', authenticate(), async (req, res) => {
     try {
         const session = await req.user.createSession({

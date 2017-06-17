@@ -30,5 +30,20 @@
         "activeSessions": "Aktywne sesje",
         "finishedSessions": "Ukończone sesje",
         "createNewSession": "Nowa sesja"
+    },
+    "character": {
+        "experience": "Doświadczenie",
+        "status": [
+            "Martwy",
+            "Żywy",
+            "Spraliżowany",
+            "Okaleczony",
+            "Otruty"
+        ]
+    },
+    "characterCreation": {
+        "title": "Stwórz swoją postać",
+        "name": "Imię",
+        "submit": "Stwórz postać"
     }
 }

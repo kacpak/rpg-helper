@@ -1,7 +1,9 @@
 <template>
     <div class="session">
         <h1>{{ session.name }}</h1>
-        <p>{{ session.description }}</p>
+        <blockquote class="blockquote" v-if="session.description">
+            <p class="mb-0">{{ session.description }}</p>
+        </blockquote>
         <router-view></router-view>
     </div>
 </template>

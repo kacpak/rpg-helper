@@ -71,15 +71,11 @@ export default class Session extends Model {
             id: { type: 'integer' },
             name: { type: 'string', minLength: 3, maxLength: 255 },
             description: { type: 'string' },
-            is_active: { type: 'boolean' }
+            is_active: { type: 'boolean', default: true }
         }
     };
 
     getChatMessages() {
-        return this.$relatedQuery('chatMessages').eager('sender(selectIdName)', {
-            selectIdName(builder) {
-                builder.select('id', 'login');
-            }
-        });
+        return this.$relatedQuery('chatMessages').eager('sender(essentials)');
     }
 }

@@ -22,9 +22,11 @@
     </div>
 </template>
 <script>
+    import isFormValid from '../../../../utils/mixins/isFormValid';
     import Session from '../../../../api/session.api';
 
     export default {
+        mixins: [isFormValid],
         data() {
           return {
               login: '',
@@ -36,9 +38,6 @@
         computed: {
             session() {
                 return this.$store.state.sessions.current;
-            },
-            isFormValid() {
-                return Object.keys(this.fields).every(key => this.fields[key].valid)
             }
         },
         methods: {

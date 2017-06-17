@@ -1,11 +1,15 @@
 <template>
     <div class="user-session">
-        <chat :id="$route.params.id"></chat>
+        <div class="row">
+            <character :character="session.character" class="col-md-5"></character>
+            <chat :id="$route.params.id" class="col-md-7"></chat>
+        </div>
     </div>
 </template>
 <script>
     import store from '../../../store/index'
     import ChatComponent from '../../../components/Chat.vue';
+    import CharacterComponent from '../../../components/Character.vue';
 
     export default {
         computed: {
@@ -28,7 +32,8 @@
             }
         },
         components: {
-            chat: ChatComponent
+            chat: ChatComponent,
+            character: CharacterComponent
         },
     }
 </script>

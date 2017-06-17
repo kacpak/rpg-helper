@@ -35,7 +35,9 @@
     </form>
 </template>
 <script>
+    import isFormValid from '../../utils/mixins/isFormValid';
     export default {
+        mixins: [isFormValid],
         data() {
             return {
                 login: '',
@@ -43,11 +45,6 @@
                 loginError: null,
                 inProgress: false
             };
-        },
-        computed: {
-            isFormValid() {
-                return Object.keys(this.fields).every(key => this.fields[key].valid)
-            }
         },
         methods: {
             async onSubmit() {

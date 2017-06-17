@@ -30,5 +30,20 @@
         "activeSessions": "Active sessions",
         "finishedSessions": "Finished sessions",
         "createNewSession": "New session"
+    },
+    "character": {
+        "experience": "Experience",
+        "status": [
+            "Dead",
+            "Alive",
+            "Paralyzed",
+            "Crippled",
+            "Poisoned"
+        ]
+    },
+    "characterCreation": {
+        "title": "Create your Character",
+        "name": "Name",
+        "submit": "Create"
     }
 }
