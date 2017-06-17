@@ -14,7 +14,7 @@
                 <session-card :session="session"></session-card>
             </div>
         </div>
-        <p class="text-muted text-center" v-text="$t('dashboard.noActiveSessions')" v-else></p>
+        <p class="text-muted text-center p-3" v-text="$t('dashboard.noActiveSessions')" v-else></p>
 
         <div v-if="finishedSessions.length">
             <h3 v-text="$t('dashboard.finishedSessions')"></h3>
