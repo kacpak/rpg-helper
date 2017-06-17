@@ -7,35 +7,29 @@
                 {{ $t('dashboard.createNewSession') }}
             </router-link>
         </header>
-        <h3>{{ $t('dashboard.activeSessions') }}</h3>
+
+        <h3 v-text="$t('dashboard.activeSessions')"></h3>
         <div v-if="activeSessions.length" class="sessions-list row">
             <div v-for="session in activeSessions" class="col-md-3">
-                <div class="session">
-                    <router-link :to="{ name: session.is_game_master ? 'session/admin' : 'session', params: {id: session.id}}">
-                        <div class="title">{{ session.name }}</div>
-                        <div class="description">{{ session.description }}</div>
-                    </router-link>
-                </div>
+                <session-card :session="session"></session-card>
             </div>
         </div>
         <p class="text-muted text-center" v-text="$t('dashboard.noActiveSessions')" v-else></p>
 
         <div v-if="finishedSessions.length">
-            <h3>{{ $t('dashboard.finishedSessions') }}</h3>
+            <h3 v-text="$t('dashboard.finishedSessions')"></h3>
             <div class="sessions-list row">
                 <div v-for="session in finishedSessions" class="col-md-3">
-                    <div class="session">
-                        <router-link :to="{ name: session.is_game_master ? 'session/admin' : 'session', params: {id: session.id}}">
-                            <div class="title">{{ session.name }}</div>
-                            <div class="description">{{ session.description }}</div>
-                        </router-link>
-                    </div>
+                    <session-card :session="session"></session-card>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
 <script>
+    import SessionCardComponent from '../../components/SessionCard.vue';
+
     export default {
         computed: {
             activeSessions() {
@@ -48,36 +42,15 @@
         created() {
             this.$store.dispatch('sessions/fetchAll')
                 .catch(console.error);
+        },
+        components: {
+            sessionCard: SessionCardComponent
         }
     }
 </script>
+
 <style lang="scss" scoped>
     @import "../../styles/_variables";
-
-    .session {
-        & {
-            margin: $grid-gutter-width-base/2 0;
-            min-height: 6em;
-            border: 1px solid $btn-secondary-border;
-            border-radius: $border-radius;
-        }
-
-        > a {
-            display: block;
-            width: 100%;
-            height: 100%;
-            padding: 1em;
-            text-decoration: none;
-        }
-
-        .title {
-            font-weight: bold;
-        }
-
-        .description {
-            font-size: .8em;
-        }
-    }
 
     h3 {
         padding: .5em 0;
