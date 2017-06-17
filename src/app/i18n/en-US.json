@@ -29,7 +29,8 @@
         "title": "Dashboard",
         "activeSessions": "Active sessions",
         "finishedSessions": "Finished sessions",
-        "createNewSession": "New session"
+        "createNewSession": "New session",
+        "noActiveSessions": "No active sessions."
     },
     "character": {
         "experience": "Experience",

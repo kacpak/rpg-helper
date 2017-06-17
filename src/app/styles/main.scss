@@ -11,3 +11,16 @@ h1 a {
         text-decoration: none;
     }
 }
+
+.flex-parted {
+    & {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    *:last-child {
+        margin-left: auto;
+    }
+}

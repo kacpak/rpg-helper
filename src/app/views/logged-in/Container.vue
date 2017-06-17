@@ -1,8 +1,8 @@
 <template>
     <div class="container">
-        <div class="header">
+        <div class="header flex-parted">
             <h1 class="display-4"><router-link :to="{ name: 'home' }">RPG Helper</router-link></h1>
-            <div class="welcome">
+            <div class="welcome mb-2 mb-sm-0">
                 {{ $t('auth.welcome', { name: loggedInUser }) }}
                 <button @click="logout" type="button" class="btn btn-secondary">
                     <i class="fa fa-sign-out" aria-hidden="true"></i> {{ $t('auth.logout') }}
@@ -12,6 +12,7 @@
         <router-view></router-view>
     </div>
 </template>
+
 <script>
     export default {
         computed: {
@@ -29,21 +30,3 @@
         }
     }
 </script>
-<style lang="scss" scoped>
-    @import "../../styles/variables";
-
-    .header {
-        @media(min-width: map-get($grid-breakpoints, sm)) {
-            display: flex;
-            align-items: center;
-
-            > *:first-child {
-                flex: 1;
-            }
-        }
-
-        .welcome {
-            text-align: right;
-        }
-    }
-</style>
