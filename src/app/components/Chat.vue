@@ -11,9 +11,9 @@
         <form @submit.prevent="sendMessage">
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-comments-o fa-fw"></i></span>
-                <input type="text" class="form-control" placeholder="Wiadomość..." v-model="message" v-focus>
+                <input type="text" class="form-control" :placeholder="$t('chat.messagePlaceholder')" v-model="message" v-focus>
                 <span class="input-group-btn">
-                    <button class="btn btn-primary" type="submit">Wyślij</button>
+                    <button class="btn btn-primary" type="submit" v-text="$t('chat.send')"></button>
                 </span>
             </div>
         </form>

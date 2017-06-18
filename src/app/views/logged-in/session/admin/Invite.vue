@@ -2,19 +2,19 @@
     <div class="invite-user-container">
         <h2>
             <router-link :to="{ name: 'session/admin' }"><i class="fa fa-times" aria-hidden="true"></i></router-link>
-            Dodaj do sesji
+            {{ $t('admin.inviteUser.title') }}
         </h2>
         <form @submit.prevent="onSubmit">
             <fieldset :disabled="inProgress">
                 <div class="form-group" :class="{'has-danger': errors.has('login')}">
-                    <label for="login">Podaj login nowego użytkownika</label>
+                    <label for="login" v-text="$t('admin.inviteUser.label')"></label>
                     <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" :class="{'form-control-warning': errors.has('login')}"
-                           placeholder="Login" name="login" id="login" v-focus
+                           :placeholder="$t('admin.inviteUser.loginPlaceholder')" name="login" id="login" v-focus
                            v-model="login" v-validate="'required|min:3'">
-                    <div v-if="errors.has('login')" class="form-text form-control-feedback">{{ errors.first('login') }}</div>
+                    <div v-if="errors.has('login')" class="form-text form-control-feedback" v-text="errors.first('login')"></div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary" :disabled="!isFormValid">Dodaj</button>
+                    <button type="submit" class="btn btn-primary" :disabled="!isFormValid" v-text="$t('admin.inviteUser.submit')"></button>
                 </div>
             </fieldset>
         </form>

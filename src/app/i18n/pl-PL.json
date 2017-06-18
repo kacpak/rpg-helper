@@ -46,5 +46,35 @@
         "title": "Stwórz swoją postać",
         "name": "Imię",
         "submit": "Stwórz postać"
+    },
+    "sessionCreation": {
+        "title": "Utwórz nową sesję",
+        "name": "Nazwa",
+        "description": "Opis",
+        "submit": "Stwórz"
+    },
+    "admin": {
+        "panel": {
+            "title": "Panel",
+            "inviteUser": "Zaproś użytkownika",
+            "editSessionDetails": "Edytuj dane sesji",
+            "modifyItems": "Modyfikuj przedmioty",
+            "modifySkills": "Modyfikuj umiejętności",
+            "modifyMagic": "Modyfikuj umiejętności magiczne",
+            "modifyCharacters": "Zarządzaj kartami postaci"
+        },
+        "chat": {
+            "title": "Chat"
+        },
+        "inviteUser": {
+            "title": "Dodaj użytkownka do sesji",
+            "label": "Podaj login nowego użytkownika",
+            "loginPlaceholder": "Login",
+            "submit": "Dodaj"
+        }
+    },
+    "chat": {
+        "send": "Wyślij",
+        "messagePlaceholder": "Wiadomość..."
     }
 }

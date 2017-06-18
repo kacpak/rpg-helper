@@ -1,21 +1,21 @@
 <template>
     <div class="create-character">
-        <h2>{{ $t('characterCreation.title') }}</h2>
+        <h2 v-text="$t('characterCreation.title')"></h2>
 
         <form @submit.prevent="onSubmit">
             <fieldset :disabled="inProgress">
                 <div class="form-group row" :class="{'has-danger': errors.has('name')}">
-                    <label for="name" class="col-sm-2 col-form-label">{{ $t('characterCreation.name') }}</label>
+                    <label for="name" class="col-sm-2 col-form-label" v-text="$t('characterCreation.name')"></label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" :placeholder="$t('characterCreation.name')"
                                id="name" name="name"
                                v-model="character.name" v-validate="'required'" v-focus>
-                        <div v-if="errors.has('name')" class="form-control-feedback">{{ errors.first('name') }}</div>
+                        <div v-if="errors.has('name')" class="form-control-feedback" v-text="errors.first('name')"></div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary" :disabled="!isFormValid">{{ $t('characterCreation.submit') }}</button>
+                        <button type="submit" class="btn btn-primary" :disabled="!isFormValid" v-text="$t('characterCreation.submit')"></button>
                     </div>
                 </div>
             </fieldset>

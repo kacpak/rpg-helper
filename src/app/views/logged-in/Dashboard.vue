@@ -1,7 +1,7 @@
 <template>
     <div class="dashboard p-2">
         <header class="flex-parted">
-            <h2>{{ $t('dashboard.title') }}</h2>
+            <h2 v-text="$t('dashboard.title')"></h2>
             <router-link :to="{ name: 'session/create' }" class="btn btn-primary" role="button">
                 <i class="fa fa-plus" aria-hidden="true"></i>
                 {{ $t('dashboard.createNewSession') }}

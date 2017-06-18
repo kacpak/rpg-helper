@@ -46,5 +46,35 @@
         "title": "Create your Character",
         "name": "Name",
         "submit": "Create"
+    },
+    "sessionCreation": {
+        "title": "Create new session",
+        "name": "Name",
+        "description": "Description",
+        "submit": "Create"
+    },
+    "admin": {
+        "panel": {
+            "title": "Panel",
+            "inviteUser": "Invite user",
+            "editSessionDetails": "Edit session details",
+            "modifyItems": "Modify items",
+            "modifySkills": "Modify skills",
+            "modifyMagic": "Modify magic",
+            "modifyCharacters": "Modify characters"
+        },
+        "chat": {
+            "title": "Chat"
+        },
+        "inviteUser": {
+            "title": "Invite user to session",
+            "label": "Type new user login",
+            "loginPlaceholder": "Login",
+            "submit": "Submit"
+        }
+    },
+    "chat": {
+        "send": "Send",
+        "messagePlaceholder": "Message..."
     }
 }

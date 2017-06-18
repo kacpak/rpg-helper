@@ -36,6 +36,7 @@ export default new VueRouter({
             },
             children: [
                 { path: '', component: Dashboard, name: 'home' },
+                { path: 'session/create', component: SessionCreate, name: 'session/create' },
                 {
                     path: 'session/:id', component: SessionContainer,
                     children: [
@@ -48,8 +49,7 @@ export default new VueRouter({
                             ]
                         }
                     ]
-                },
-                { path: 'session/create', component: SessionCreate, name: 'session/create' },
+                }
             ]
         },
         {
