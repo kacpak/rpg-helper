@@ -31,7 +31,6 @@
             }
         },
         created() {
-            this.$store.commit(SET_MESSAGES, []);
             this.socket = getSocket('chat', {
                 room: 'chat',
                 session_id: parseInt(this.id, 10)

@@ -1,5 +1,5 @@
 import Session from '../../api/session.api';
-import {SET_SESSIONS, SET_CURRENT_SESSION} from '../mutation-types';
+import {SET_SESSIONS, SET_CURRENT_SESSION, SET_MESSAGES} from '../mutation-types';
 
 export default {
     namespaced: true,
@@ -37,7 +37,11 @@ export default {
         fetchNewCurrent({commit}, id) {
             return Session.fetch({ id, detailed: true })
                 .then(response => response.body)
-                .then(session => commit(SET_CURRENT_SESSION, session))
+                .then(session => {
+                    commit(SET_MESSAGES, session.chatMessages, { root: true });
+                    delete session.chatMessages;
+                    commit(SET_CURRENT_SESSION, session);
+                })
                 .catch(err => {
                     console.error(err);
                     throw err;
