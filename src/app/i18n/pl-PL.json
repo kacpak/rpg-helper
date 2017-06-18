@@ -67,7 +67,7 @@
             "title": "Chat"
         },
         "inviteUser": {
-            "title": "Dodaj użytkownka do sesji",
+            "title": "Dodaj użytkownika do sesji",
             "label": "Podaj login nowego użytkownika",
             "loginPlaceholder": "Login",
             "submit": "Dodaj"
