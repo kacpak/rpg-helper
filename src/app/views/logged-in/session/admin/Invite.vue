@@ -1,8 +1,8 @@
 <template>
     <div class="invite-user-container">
-        <h2>
+        <h2 class="flex-parted">
+            <span>{{ $t('admin.inviteUser.title') }}</span>
             <router-link :to="{ name: 'session/admin' }"><i class="fa fa-times" aria-hidden="true"></i></router-link>
-            {{ $t('admin.inviteUser.title') }}
         </h2>
         <form @submit.prevent="onSubmit">
             <fieldset :disabled="inProgress">

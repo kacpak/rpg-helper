@@ -71,6 +71,12 @@
             "label": "Podaj login nowego użytkownika",
             "loginPlaceholder": "Login",
             "submit": "Dodaj"
+        },
+        "editSessionDetails": {
+            "title": "Edytuj dane sesji",
+            "name": "Nazwa",
+            "description": "Opis",
+            "submit": "Zapisz"
         }
     },
     "chat": {

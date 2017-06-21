@@ -71,6 +71,14 @@
             "label": "Type new user login",
             "loginPlaceholder": "Login",
             "submit": "Submit"
+        },
+        "editSessionDetails": {
+            "title": "Edit session details",
+            "name": "Name",
+            "description": "Description",
+            "submit": "Save",
+            "finishSession": "Do you want to finish this session?",
+            "finishSessionSubmit": "Finish session"
         }
     },
     "chat": {

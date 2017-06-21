@@ -15,6 +15,7 @@ import SessionCharacterCreate from '../views/logged-in/session/CharacterCreate.v
 
 import SessionGameMaster from '../views/logged-in/session/admin/Admin.vue';
 import SessionInvite from '../views/logged-in/session/admin/Invite.vue';
+import SessionDetails from '../views/logged-in/session/admin/EditSessionDetails.vue';
 
 import store from '../store/index';
 
@@ -45,7 +46,8 @@ export default new VueRouter({
                         {
                             path: 'admin', component: SessionGameMaster, name: 'session/admin',
                             children: [
-                                { path: 'invite', component: SessionInvite, name: 'session/admin/invite' }
+                                { path: 'invite', component: SessionInvite, name: 'session/admin/invite' },
+                                { path: 'editSessionDetails', component: SessionDetails, name: 'session/admin/editSessionDetails' }
                             ]
                         }
                     ]
