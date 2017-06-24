@@ -15,7 +15,7 @@ router.get('/sessions', authenticate(), async (req, res) => {
 router.get('/sessions/:id', authenticate(), async (req, res) => {
     try {
         const session = await (req.query.detailed
-            ? req.user.findSession(req.params.id).eager('[user, character, chatMessages.sender(essentials)]')
+            ? req.user.findSessionWithDetails(req.params.id)
             : req.user.findSession(req.params.id));
 
         res.json(session);

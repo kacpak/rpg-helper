@@ -77,7 +77,7 @@ export default class Session extends Model {
     };
 
     getChatMessages() {
-        return this.$relatedQuery('chatMessages').eager('sender(essentials)');
+        return this.$relatedQuery('chatMessages').eager('user(essentials).character(essentials)');
     }
 
     editDetails(details) {

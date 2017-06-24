@@ -18,7 +18,7 @@ export function init(https) {
         }))
         .on('authenticated', async socket => {
             const user = await User.findById(socket.decoded_token.id);
-            socket._user = user;
+            socket._store = { user };
             logger.info(`New user '${user.login}' connected.`);
 
             socket

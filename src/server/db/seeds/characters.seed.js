@@ -1,5 +1,8 @@
 export async function seed(knex) {
-    await knex('character').del();
+    const characters = await knex('character').count('id as count').first();
+    if (characters.count) {
+        return;
+    }
     await knex('character').insert([
         {
             id: 1,

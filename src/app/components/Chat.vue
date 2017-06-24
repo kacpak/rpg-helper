@@ -3,7 +3,8 @@
         <div class="messages" v-chat-scroll="{always: false}">
             <div class="card card-outline-secondary m-2" v-for="message in messages">
                 <div class="card-block p-2">
-                    <span class="font-weight-bold">@{{ message.sender.login }}</span>
+                    <span class="font-weight-bold" v-if="message.user.character">@{{ message.user.character.name }}</span>
+                    <span class="font-weight-bold" v-else>@<span class="gm">GM</span></span>
                     {{ message.message }}
                 </div>
             </div>
@@ -13,7 +14,7 @@
                 <span class="input-group-addon"><i class="fa fa-comments-o fa-fw"></i></span>
                 <input type="text" class="form-control" :placeholder="$t('chat.messagePlaceholder')" v-model="message" v-focus>
                 <span class="input-group-btn">
-                    <button class="btn btn-primary" type="submit" v-text="$t('chat.send')"></button>
+                    <button class="btn btn-primary" type="submit" v-text="$t('chat.send')" :disabled="!message.length"></button>
                 </span>
             </div>
         </form>
@@ -66,6 +67,10 @@
         flex: 1;
         overflow: auto;
         height: 100%;
+
+        .gm {
+            color: #ff6d00; // orange darken-4 // TODO: move to color pallete
+        }
     }
 }
 </style>

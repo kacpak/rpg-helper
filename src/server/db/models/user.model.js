@@ -84,14 +84,28 @@ export default class User extends Model {
         return this.$relatedQuery('sessions').where('session.id', sessionId).first();
     }
 
+    findSessionWithCharacter(sessionId) {
+        return this.findSession(sessionId).eager('character(essentials, me)', {
+            me: builder => builder.where('character_session_user.user_id', this.id)
+        });
+    }
+
+    findSessionWithDetails(sessionId) {
+        return this.findSession(sessionId).eager('[user, character(me), chatMessages.user(essentials).character(essentials, me)]', {
+            me: builder => builder.where('character_session_user.user_id', this.id)
+        });
+    }
+
     async findCharacterBySessionId(sessionId) {
         const characterInSession = await this.$relatedQuery('sessions')
             .select('id')
             .where('session.id', sessionId)
-            .eager('character')
+            .eager('character(me)', {
+                me: builder => builder.where('character_session_user.user_id', this.id)
+            })
             .first();
 
-        return characterInSession.character;
+        return characterInSession && characterInSession.character;
     }
 
     createSession(sessionDetails) {
