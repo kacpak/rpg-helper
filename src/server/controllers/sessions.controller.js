@@ -26,19 +26,50 @@ router.get('/sessions/:id', authenticate(), async (req, res) => {
     }
 });
 
-router.post('/sessions/:id/invite', authenticate(), async (req, res) => {
+router.post('/sessions/:id/invite', authenticate(), sessionGameMaster, async (req, res) => {
     try {
-        const userSession = await req.user.findSession(req.params.id);
-        if (!userSession.is_game_master) {
-            throw 'Only Game Master can invite users to session';
-        }
-
         const user = await User.findByLogin(req.body.login);
         res.json(await user.joinSession(req.params.id));
     } catch (err) {
         logger.error(`Inviting user ${req.body.login} to session id ${req.params.id} failed.`);
         logger.debug(err);
-        res.status(400).send(err);
+        res.status(500).send(err);
+    }
+});
+
+router.post('/sessions/:id/details', authenticate(), sessionGameMaster, async (req, res) => {
+    try {
+        const session = await req.userSession.editDetails(req.body.details);
+        res.json(session);
+
+    } catch (err) {
+        logger.error(`Editing session details of session id ${req.params.id} by user ${req.body.login} failed.`);
+        logger.debug(err);
+        res.status(500).send(err);
+    }
+});
+
+router.delete('/sessions/:id/details', authenticate(), sessionGameMaster, async (req, res) => {
+    try {
+        const session = await req.userSession.finish();
+        res.json(session);
+
+    } catch (err) {
+        logger.error(`Finishing session of id ${req.params.id} by user ${req.body.login} failed.`);
+        logger.debug(err);
+        res.status(500).send(err);
+    }
+});
+
+router.post('/sessions/:id/details/resume', authenticate(), sessionGameMaster, async (req, res) => {
+    try {
+        const session = await req.userSession.resume();
+        res.json(session);
+
+    } catch (err) {
+        logger.error(`Finishing session of id ${req.params.id} by user ${req.body.login} failed.`);
+        logger.debug(err);
+        res.status(500).send(err);
     }
 });
 
@@ -77,5 +108,23 @@ router.post('/sessions', authenticate(), async (req, res) => {
     }
 });
 
+async function sessionGameMaster(req, res, next) {
+    try {
+        const userSession = await req.user.findSession(req.params.id);
+        if (!userSession.is_game_master) {
+            res.sendStatus(403);
+            logger.error(`No game master permissions for user id ${req.user.id} and session id ${req.params.id}`);
+            return next(new Error('Insufficient privileges'));
+        }
+
+        req.userSession = userSession;
+        next();
+
+    } catch(err) {
+        logger.debug(err);
+        res.sendStatus(500);
+        next(err);
+    }
+}
 
 export default router;

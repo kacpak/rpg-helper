@@ -53,7 +53,7 @@
 
                 try {
                     await Session.invite({
-                        sessionId: this.session.id,
+                        id: this.session.id,
                         userLogin: this.login
                     });
                     this.message = `Użytkownik <strong>${this.login}</strong> dodany do sesji.`;

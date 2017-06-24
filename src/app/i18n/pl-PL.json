@@ -76,7 +76,12 @@
             "title": "Edytuj dane sesji",
             "name": "Nazwa",
             "description": "Opis",
-            "submit": "Zapisz"
+            "notes": "Notatki",
+            "submit": "Zapisz",
+            "finishSession": "Czy chcesz zakończyć sesję?",
+            "finishSessionSubmit": "Zakończ sesję",
+            "restartSession": "Czy chcesz wznowić sesję?",
+            "restartSessionSubmit": "Wznów sesję"
         }
     },
     "chat": {

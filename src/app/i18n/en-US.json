@@ -76,9 +76,12 @@
             "title": "Edit session details",
             "name": "Name",
             "description": "Description",
+            "notes": "Notes",
             "submit": "Save",
             "finishSession": "Do you want to finish this session?",
-            "finishSessionSubmit": "Finish session"
+            "finishSessionSubmit": "Finish session",
+            "restartSession": "Do you want to resume this session?",
+            "restartSessionSubmit": "Resume session"
         }
     },
     "chat": {

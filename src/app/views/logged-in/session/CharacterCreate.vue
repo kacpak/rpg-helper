@@ -47,7 +47,7 @@
                 this.inProgress = true;
                 try {
                     await api.createCharacter({
-                        sessionId: this.$route.params.id,
+                        id: this.$route.params.id,
                         character: this.character
                     });
                     await this.$store.dispatch('sessions/fetchNewCurrent', this.$route.params.id);

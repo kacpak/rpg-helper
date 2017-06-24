@@ -24,6 +24,13 @@
                 </div>
 
                 <div class="form-group row">
+                    <label for="notes" class="col-sm-2 col-form-label" v-text="$t('admin.editSessionDetails.notes')"></label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" v-model="session.notes" id="notes" rows="6"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row">
                     <div class="offset-sm-2 col-sm-10">
                         <button type="submit" class="btn btn-primary" :disabled="!isFormValid"
                                 v-text="$t('admin.editSessionDetails.submit')"></button>
@@ -31,17 +38,28 @@
                 </div>
             </fieldset>
         </form>
+        <transition name="fade" mode="out-in">
+            <div class="finish-session mt-5" v-if="session.is_active">
+                <p v-text="$t('admin.editSessionDetails.finishSession')"></p>
 
-        <div class="finish-session mt-5">
-            <p v-text="$t('admin.editSessionDetails.finishSession')"></p>
-
-            <div class="row">
-                <div class="offset-sm-2 col-sm-10">
-                    <button type="button" class="btn btn-danger" :disabled="inProgress" @click="onFinish"
-                            v-text="$t('admin.editSessionDetails.finishSessionSubmit')"></button>
+                <div class="row">
+                    <div class="offset-sm-2 col-sm-10">
+                        <button type="button" class="btn btn-danger" :disabled="inProgress" @click="onFinish"
+                                v-text="$t('admin.editSessionDetails.finishSessionSubmit')"></button>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="finish-session mt-5" v-else>
+                <p v-text="$t('admin.editSessionDetails.restartSession')"></p>
+
+                <div class="row">
+                    <div class="offset-sm-2 col-sm-10">
+                        <button type="button" class="btn btn-success" :disabled="inProgress" @click="onResume"
+                                v-text="$t('admin.editSessionDetails.restartSessionSubmit')"></button>
+                    </div>
+                </div>
+            </div>
+        </transition>
     </div>
 </template>
 
@@ -50,9 +68,10 @@
 
     export default {
         mixins: [isFormValid],
-        computed: {
-            session() {
-                return this.$store.state.sessions.current;
+        data() {
+            return {
+                session: JSON.parse(JSON.stringify(this.$store.state.sessions.current)),
+                inProgress: false
             }
         },
         methods: {
@@ -60,7 +79,7 @@
                 this.inProgress = true;
                 try {
                     await this.$validator.validateAll();
-                    alert('Saving session details not yet implemented');
+                    await this.$store.dispatch('sessions/editCurrent', this.session);
                 } catch (err) {
                     // Nothing
                 }
@@ -69,7 +88,18 @@
             async onFinish() {
                 this.inProgress = true;
                 try {
-                    alert('Finishing session not yet implemented');
+                    await this.$store.dispatch('sessions/finishCurrent');
+                    this.session = JSON.parse(JSON.stringify(this.$store.state.sessions.current));
+                } catch (err) {
+                    // Nothing
+                }
+                this.inProgress = false;
+            },
+            async onResume() {
+                this.inProgress = true;
+                try {
+                    await this.$store.dispatch('sessions/resumeCurrent');
+                    this.session = JSON.parse(JSON.stringify(this.$store.state.sessions.current));
                 } catch (err) {
                     // Nothing
                 }

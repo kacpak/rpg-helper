@@ -1,5 +1,5 @@
 import Session from '../../api/session.api';
-import {SET_SESSIONS, SET_CURRENT_SESSION, SET_MESSAGES} from '../mutation-types';
+import {SET_SESSIONS, SET_CURRENT_SESSION, UPDATE_CURRENT_SESSION, SET_MESSAGES} from '../mutation-types';
 
 export default {
     namespaced: true,
@@ -17,6 +17,9 @@ export default {
         },
         [SET_CURRENT_SESSION](state, session) {
             state.current = session;
+        },
+        [UPDATE_CURRENT_SESSION](state, session) {
+            Object.assign(state.current, session);
         }
     },
     actions: {
@@ -42,6 +45,39 @@ export default {
                     delete session.chatMessages;
                     commit(SET_CURRENT_SESSION, session);
                 })
+                .catch(err => {
+                    console.error(err);
+                    throw err;
+                });
+        },
+        editCurrent({state, commit}, details) {
+            return Session
+                .editDetails({
+                    id: state.current.id,
+                    details
+                })
+                .then(response => response.body)
+                .then(session => commit(UPDATE_CURRENT_SESSION, session))
+                .catch(err => {
+                    console.error(err);
+                    throw err;
+                });
+        },
+        finishCurrent({state, commit}) {
+            return Session
+                .finish({ id: state.current.id })
+                .then(response => response.body)
+                .then(session => commit(UPDATE_CURRENT_SESSION, session))
+                .catch(err => {
+                    console.error(err);
+                    throw err;
+                });
+        },
+        resumeCurrent({state, commit}) {
+            return Session
+                .resume({ id: state.current.id })
+                .then(response => response.body)
+                .then(session => commit(UPDATE_CURRENT_SESSION, session))
                 .catch(err => {
                     console.error(err);
                     throw err;

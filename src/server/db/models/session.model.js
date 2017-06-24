@@ -70,12 +70,27 @@ export default class Session extends Model {
         properties: {
             id: { type: 'integer' },
             name: { type: 'string', minLength: 3, maxLength: 255 },
-            description: { type: 'string' },
+            description: { type: ['null', 'string'] },
+            notes: { type: ['null', 'string'] },
             is_active: { type: 'boolean', default: true }
         }
     };
 
     getChatMessages() {
         return this.$relatedQuery('chatMessages').eager('sender(essentials)');
+    }
+
+    editDetails(details) {
+        const {name, description, notes} = details;
+
+        return this.$query().patchAndFetch({name, description, notes});
+    }
+
+    finish() {
+        return this.$query().patchAndFetch({is_active: false});
+    }
+
+    resume() {
+        return this.$query().patchAndFetch({is_active: true});
     }
 }

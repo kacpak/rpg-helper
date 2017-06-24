@@ -1,8 +1,8 @@
 export function up(knex) {
     return knex.schema.createTableIfNotExists('user', table => {
         table.bigIncrements();
-        table.string('login').unique();
-        table.string('password');
+        table.string('login').notNullable().unique();
+        table.string('password').notNullable();
         table.timestamps();
     });
 }
