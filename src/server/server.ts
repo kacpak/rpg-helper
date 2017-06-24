@@ -1,12 +1,12 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import { config } from 'dotenv';
+config();
 
-import bodyParser from 'body-parser';
-import compression from 'compression';
-import express from 'express';
-import historyApiFallback from 'express-history-api-fallback';
-import http from 'http';
-import spdy from 'spdy';
+import * as bodyParser from 'body-parser';
+import * as compression from 'compression';
+import * as express from 'express';
+import * as historyApiFallback from 'express-history-api-fallback';
+import * as http from 'http';
+import * as spdy from 'spdy';
 
 import paths from './config/paths';
 import * as auth from './config/auth';

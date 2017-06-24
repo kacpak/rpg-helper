@@ -1,5 +1,5 @@
-import socketIo from 'socket.io';
-import SocketIoJwt from 'socketio-jwt';
+import * as socketIo from 'socket.io';
+import * as SocketIoJwt from 'socketio-jwt';
 import User from '../db/models/user.model';
 import chatSupport from './chat.socket';
 import {getLogger} from '../config/logger';

@@ -1,7 +1,19 @@
-import path from 'path';
+import * as path from 'path';
 import Model from './_timestamped.model';
 
 export default class Character extends Model {
+    readonly id: number;
+    name: string;
+    hit_points: number;
+    status: number;
+    experience: number;
+    strength: number;
+    constitution: number;
+    dexterity: number;
+    intelligence: number;
+    wisdom: number;
+    charisma: number;
+
     static tableName = 'character';
 
     static relationMappings = {

@@ -1,6 +1,6 @@
-import bcrypt from 'bcrypt';
-import express from 'express';
-import jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt';
+import * as express from 'express';
+import * as jwt from 'jsonwebtoken';
 import User from '../db/models/user.model';
 import { authenticate } from '../config/auth';
 import { getLogger } from '../config/logger';

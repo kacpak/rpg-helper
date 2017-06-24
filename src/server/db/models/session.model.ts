@@ -1,7 +1,19 @@
 import path from 'path';
 import Model from './_timestamped.model';
+import Character from './character.model';
+import User from './user.model';
 
 export default class Session extends Model {
+    readonly id: number;
+    name: string;
+    description: string;
+    notes: string;
+    is_active: boolean;
+    character: Character;
+    characters: Character[];
+    user: User;
+    users: User[];
+
     static tableName = 'session';
 
     static relationMappings = {
@@ -80,7 +92,7 @@ export default class Session extends Model {
         return this.$relatedQuery('chatMessages').eager('user(essentials).character(essentials)');
     }
 
-    editDetails(details) {
+    editDetails(details: Session) {
         const {name, description, notes} = details;
 
         return this.$query().patchAndFetch({name, description, notes});

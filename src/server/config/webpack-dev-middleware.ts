@@ -1,7 +1,7 @@
-import path from 'path';
-import webpack from 'webpack';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpackDevMiddleware from 'webpack-dev-middleware';
+import * as path from 'path';
+import * as webpack from 'webpack';
+import * as webpackHotMiddleware from 'webpack-hot-middleware';
+import * as webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackConfig from './webpack.config';
 
 const compiler = webpack(webpackConfig);

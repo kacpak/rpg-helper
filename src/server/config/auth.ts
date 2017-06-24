@@ -1,4 +1,4 @@
-import passport from 'passport';
+import * as passport from 'passport';
 import { Strategy as JwtStrategy, ExtractJwt} from 'passport-jwt';
 import User from '../db/models/user.model';
 

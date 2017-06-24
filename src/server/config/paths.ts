@@ -1,8 +1,8 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import { config } from 'dotenv';
+config();
 
-import path from 'path';
-import mkdirp from 'mkdirp';
+import * as path from 'path';
+import * as mkdirp from 'mkdirp';
 const root = path.resolve(__dirname, '../../..');
 const dist = path.resolve(root, 'dist');
 

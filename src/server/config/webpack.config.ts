@@ -1,11 +1,11 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import { config } from 'dotenv';
+config();
 
-import webpack from 'webpack';
-import webpackMerge from 'webpack-merge';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import BabiliPlugin from 'babili-webpack-plugin';
+import * as webpack from 'webpack';
+import * as webpackMerge from 'webpack-merge';
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as ExtractTextPlugin from 'extract-text-webpack-plugin';
+import * as BabiliPlugin from 'babili-webpack-plugin';
 
 import paths from './paths';
 

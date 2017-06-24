@@ -1,7 +1,14 @@
-import path from 'path';
+import * as path from 'path';
 import {Model} from 'objection';
 
 export default class ChatMessage extends Model {
+    readonly id: number;
+    user_id: number;
+    character_id: number;
+    session_id: number;
+    message: string;
+    sent_at: string;
+
     static tableName = 'chat_message';
 
     static relationMappings = {

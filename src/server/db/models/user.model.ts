@@ -1,10 +1,17 @@
-import omit from 'lodash.omit';
-import path from 'path';
-import objection from 'objection';
+import * as omit from 'lodash.omit';
+import * as path from 'path';
+import * as objection from 'objection';
 import Model from './_timestamped.model';
 import Character from './character.model';
+import Session from './session.model';
+import CharacterSessionUser from './character_session_user.model';
 
 export default class User extends Model {
+    readonly id: number;
+    login: string;
+    password: string;
+    character: Character;
+
     static tableName = 'user';
 
     static get $secureFields() {
@@ -67,11 +74,11 @@ export default class User extends Model {
         }
     };
 
-    static findById(id) {
+    static findById(id: number) {
         return User.query().where('id', id).first();
     }
 
-    static findByLogin(login) {
+    static findByLogin(login: string) {
         return User.query().where('login', login).first();
     }
 
@@ -80,24 +87,24 @@ export default class User extends Model {
         return omit(json, User.$secureFields);
     }
 
-    findSession(sessionId) {
+    findSession(sessionId: number) {
         return this.$relatedQuery('sessions').where('session.id', sessionId).first();
     }
 
-    findSessionWithCharacter(sessionId) {
+    findSessionWithCharacter(sessionId: number) {
         return this.findSession(sessionId).eager('character(essentials, me)', {
             me: builder => builder.where('character_session_user.user_id', this.id)
         });
     }
 
-    findSessionWithDetails(sessionId) {
+    findSessionWithDetails(sessionId: number) {
         return this.findSession(sessionId).eager('[user, character(me), chatMessages.user(essentials).character(essentials, me)]', {
             me: builder => builder.where('character_session_user.user_id', this.id)
         });
     }
 
-    async findCharacterBySessionId(sessionId) {
-        const characterInSession = await this.$relatedQuery('sessions')
+    async findCharacterBySessionId(sessionId: number) {
+        const characterInSession = await this.$relatedQuery<Session>('sessions')
             .select('id')
             .where('session.id', sessionId)
             .eager('character(me)', {
@@ -108,15 +115,15 @@ export default class User extends Model {
         return characterInSession && characterInSession.character;
     }
 
-    createSession(sessionDetails) {
+    createSession(sessionDetails: Session) {
         const newSession = Object.assign({ is_active: true, is_game_master: true }, sessionDetails);
         return this
             .$relatedQuery('sessions')
             .insertGraph(newSession);
     }
 
-    joinSession(sessionId) {
-        return this.$relatedQuery('sessions').relate({
+    joinSession(sessionId: number) {
+        return this.$relatedQuery('sessions').relate<Session & CharacterSessionUser>({
             id: sessionId,
             is_game_master: false
         });
@@ -125,9 +132,9 @@ export default class User extends Model {
     createCharacter(sessionId, characterData) {
         const knex = Character.knex();
         return objection.transaction(knex, async trx => {
-            const character = await Character.query(trx).insert(characterData);
+            const character: Character = await Character.query(trx).insert(characterData).first();
 
-            await this.$relatedQuery('characterSessions', trx)
+            await this.$relatedQuery<CharacterSessionUser>('characterSessions', trx)
                 .where({ session_id: sessionId })
                 .patch({
                     character_id: character.id

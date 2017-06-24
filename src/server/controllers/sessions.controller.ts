@@ -1,4 +1,4 @@
-import express from 'express';
+import * as express from 'express';
 import { authenticate } from '../config/auth';
 import { getLogger } from '../config/logger';
 import User from '../db/models/user.model';

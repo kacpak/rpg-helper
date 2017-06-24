@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 
 export async function seed(knex) {
     const users = await knex('user').count('id as count').first();

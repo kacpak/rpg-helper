@@ -1,4 +1,4 @@
-import knex from 'knex';
+import * as knex from 'knex';
 import {Model} from 'objection';
 import {getLogger} from '../config/logger';
 

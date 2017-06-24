@@ -1,4 +1,6 @@
-export function up(knex) {
+import * as Knex from 'knex';
+
+export function up(knex: Knex) {
     return knex.schema.createTableIfNotExists('user', table => {
         table.bigIncrements();
         table.string('login').notNullable().unique();
@@ -7,6 +9,6 @@ export function up(knex) {
     });
 }
 
-export function down(knex) {
+export function down(knex: Knex) {
     return knex.schema.dropTable('user');
 }

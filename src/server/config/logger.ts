@@ -1,7 +1,7 @@
-import path from 'path';
-import morgan from 'morgan';
-import split from 'split';
-import winston from 'winston';
+import * as path from 'path';
+import * as morgan from 'morgan';
+import * as split from 'split';
+import * as winston from 'winston';
 import paths from './paths';
 
 const consoleLevel = process.env.NODE_ENV === 'production' ? 'info' : 'debug';
