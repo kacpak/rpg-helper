@@ -2,14 +2,15 @@ import * as bcrypt from 'bcrypt';
 import * as express from 'express';
 import * as jwt from 'jsonwebtoken';
 import User from '../db/models/user.model';
-import { authenticate } from '../config/auth';
+import {authenticate, AuthenticatedRequest} from '../config/auth';
 import { getLogger } from '../config/logger';
+import {Request, Response} from 'express';
 
 const logger = getLogger('AUTH');
 
 const router = express.Router();
 
-router.post('/login', async (req, res) => {
+router.post('/login', async (req: Request, res: Response) => {
     try {
         const user = await User.findByLogin(req.body.login);
         if (await bcrypt.compare(req.body.password, user.password)) {
@@ -30,15 +31,15 @@ router.post('/login', async (req, res) => {
     return res.sendStatus(401);
 });
 
-router.get('/me', authenticate(), (req, res) => res.json(req.user));
+router.get('/me', authenticate(), (req: AuthenticatedRequest, res: Response) => res.json(req.user));
 
-router.get('/logout', authenticate(), (req, res) => {
+router.get('/logout', authenticate(), (req: AuthenticatedRequest, res: Response) => {
     logger.info(`User logged out: ${req.user.login}`);
     req.logout();
     res.redirect('/');
 });
 
-router.post('/register', async (req, res) => {
+router.post('/register', async (req: Request, res: Response) => {
     try {
         await User.query().insert({
             login: req.body.login,

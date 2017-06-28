@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { authenticate } from '../config/auth';
+import {authenticate, AuthenticatedRequest} from '../config/auth';
 import { getLogger } from '../config/logger';
 import User from '../db/models/user.model';
 
@@ -7,12 +7,12 @@ const logger = getLogger('SESSION');
 
 const router = express.Router();
 
-router.get('/sessions', authenticate(), async (req, res) => {
+router.get('/sessions', authenticate(), async (req: AuthenticatedRequest, res: Response) => {
     const userSessions = await req.user.$relatedQuery('sessions');
     res.json(userSessions);
 });
 
-router.get('/sessions/:id', authenticate(), async (req, res) => {
+router.get('/sessions/:id', authenticate(), async (req: AuthenticatedRequest, res: Response) => {
     try {
         const session = await (req.query.detailed
             ? req.user.findSessionWithDetails(req.params.id)
@@ -26,7 +26,7 @@ router.get('/sessions/:id', authenticate(), async (req, res) => {
     }
 });
 
-router.post('/sessions/:id/invite', authenticate(), sessionGameMaster, async (req, res) => {
+router.post('/sessions/:id/invite', authenticate(), sessionGameMaster, async (req: AuthenticatedRequest, res: Response) => {
     try {
         const user = await User.findByLogin(req.body.login);
         res.json(await user.joinSession(req.params.id));

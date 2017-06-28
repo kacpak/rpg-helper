@@ -1,6 +1,11 @@
 import * as passport from 'passport';
 import { Strategy as JwtStrategy, ExtractJwt} from 'passport-jwt';
 import User from '../db/models/user.model';
+import { Request } from 'express';
+
+export interface AuthenticatedRequest extends Express.Request, Request {
+    user: User;
+}
 
 export function init(app) {
     const options = {
