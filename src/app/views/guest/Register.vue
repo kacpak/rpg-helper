@@ -50,6 +50,8 @@
 </template>
 <script>
     import isFormValid from '../../utils/mixins/isFormValid';
+    import User from '../../api/user.api';
+
     export default {
         mixins: [isFormValid],
         data() {
@@ -62,29 +64,22 @@
         },
         methods: {
             async onSubmit() {
+                this.inProgress = true;
                 try {
                     await this.$validator.validateAll();
-                    this.inProgress = true;
                     this.registrationError = null;
-                    this.$store
-                        .dispatch('register', {
-                            login: this.login,
-                            password: this.password
-                        })
-                        .then(response => {
-                            this.$router.push({name: 'login'})
-                        })
-                        .catch(response => {
-                            if (response.body.code === 'SQLITE_CONSTRAINT') {
-                                this.registrationError = this.$t('auth.registration.errors.usernameTaken');
-                            } else {
-                                this.registrationError = this.$t('auth.registration.errors.general');
-                            }
-                        })
-                        .finally(() => this.inProgress = false);
+
+                    await User.register(this.login, this.password);
+                    this.$router.push({name: 'login'});
+
                 } catch (err) {
-                    //Nothing
+                    if (err.body && err.body.code === 'SQLITE_CONSTRAINT') {
+                        this.registrationError = this.$t('auth.registration.errors.usernameTaken');
+                    } else {
+                        this.registrationError = this.$t('auth.registration.errors.general');
+                    }
                 }
+                this.inProgress = false;
             }
         }
     }

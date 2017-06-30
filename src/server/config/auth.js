@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt-nodejs';
 import passport from 'passport';
 import { Strategy as JwtStrategy, ExtractJwt} from 'passport-jwt';
 import User from '../db/models/user.model';
@@ -23,3 +24,7 @@ export function init(app) {
 }
 
 export const authenticate = () => passport.authenticate('jwt', { session: false });
+
+export function getHashedPassword(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+}

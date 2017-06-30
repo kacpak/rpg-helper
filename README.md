@@ -7,7 +7,7 @@
 **Important** It is a simple side project published only for sharing with friends. Do **NOT** expect any support or working system until at least **v1.0.0** hits.
 
 ## Requirements
-* Node ^7.10.0
+* Node ^8
 * `openssl` to generate ssl certificate
 
 ## CLI
@@ -34,14 +34,17 @@ Examples:
 
 Copyright © 2017 Mateusz Kasprzak
 ```
+## Certificate generation
+* `cd ./sslcert`
+* `openssl genrsa 1024 > private.key`
+* `openssl req -new -key private.key -out cert.csr`
+* `openssl x509 -req -in cert.csr -signkey private.key -out certificate.pem`
 
-## Developer
-* `cp .env-sample .env`
-* Generate SSL Certifacte
-    * `cd ./sslcert`
-    * `openssl genrsa 1024 > private.key`
-    * `openssl req -new -key private.key -out cert.csr`
-    * `openssl x509 -req -in cert.csr -signkey private.key -out certificate.pem`
+## For developers
+* `cp .env-sample .env` use default environmental variables
+* `yarn build` build project for production
+* `yarn start` start built project
+* `yarn dev` start project in development mode (watch mode with auto reload)
 
 ### Publishing new version
 * `yarn full-publish`

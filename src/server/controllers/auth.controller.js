@@ -1,8 +1,8 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt-nodejs';
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../db/models/user.model';
-import { authenticate } from '../config/auth';
+import { authenticate, getHashedPassword } from '../config/auth';
 import { getLogger } from '../config/logger';
 
 const logger = getLogger('AUTH');
@@ -12,7 +12,7 @@ const router = express.Router();
 router.post('/login', async (req, res) => {
     try {
         const user = await User.findByLogin(req.body.login);
-        if (await bcrypt.compare(req.body.password, user.password)) {
+        if (bcrypt.compareSync(req.body.password, user.password)) {
             const token = jwt.sign(
                 {
                     id: user.id
@@ -42,7 +42,7 @@ router.post('/register', async (req, res) => {
     try {
         await User.query().insert({
             login: req.body.login,
-            password: await bcrypt.hash(req.body.password, 10)
+            password: getHashedPassword(req.body.password)
         });
         logger.info(`New user registered: ${req.body.login}`);
         res.sendStatus(200);

@@ -13,12 +13,14 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const babelOptions = {
     babelrc: false,
-    presets: [ [ 'env', {
-        targets: {
-            browsers: ['> 1%', 'last 2 versions', 'safari >= 7', 'ie >= 11']
-        },
-        useBuiltIns: true
-    } ] ],
+    presets: [ 
+        [ 'env', {
+            targets: {
+                browsers: ['> 1%', 'last 2 versions', 'safari >= 7', 'ie >= 11', 'ff >= 46']
+            },
+            useBuiltIns: true
+        }]
+    ],
 };
 
 const baseConfig = {
@@ -72,7 +74,11 @@ const baseConfig = {
                             use: ['css-loader', 'sass-loader'],
                             fallback: 'vue-style-loader'
                         }),
-                        i18n: '@kazupon/vue-i18n-loader'
+                        i18n: '@kazupon/vue-i18n-loader',
+                        js: {
+                            loader: 'babel-loader',
+                            options: babelOptions
+                        }
                     },
                     extractCSS: isProduction
                 }

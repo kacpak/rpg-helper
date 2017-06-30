@@ -47,9 +47,6 @@ export default {
         logout({commit}) {
             return User.logout()
                 .finally(() => commit(UNAUTHENTICATE));
-        },
-        register({commit}, {login, password}) {
-            return User.register(login, password);
         }
     }
 };
