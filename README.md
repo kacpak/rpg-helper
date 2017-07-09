@@ -6,6 +6,9 @@
 
 **Important** It is a simple side project published only for sharing with friends. Do **NOT** expect any support or working system until at least **v1.0.0** hits.
 
+## Demo
+Current master demo is available at [rpghelper.herokuapp.com](https://rpghelper.herokuapp.com)
+
 ## Requirements
 * Node ^8
 * `openssl` to generate ssl certificate
