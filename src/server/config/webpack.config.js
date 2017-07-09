@@ -93,6 +93,7 @@ const baseConfig = {
     plugins: [
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.EnvironmentPlugin(['NODE_ENV']),
+        new webpack.optimize.ModuleConcatenationPlugin(),
         new HtmlWebpackPlugin({
             template: './src/app/index.html'
         }),
