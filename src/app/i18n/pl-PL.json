@@ -40,11 +40,36 @@
             "Spraliżowany",
             "Okaleczony",
             "Otruty"
-        ]
+        ],
+        "basic": {
+            "title": "Podstawowe",
+            "name": "Imię",
+            "race": "Rasa",
+            "character": "Charakter",
+            "deity": "Bóstwo"
+        },
+        "appearance": {
+            "title": "Wygląd",
+            "size": "Rozmiar",
+            "age": "Wiek",
+            "sex": "Płeć",
+            "height": "Wzrost",
+            "weight": "Waga",
+            "eyes": "Oczy",
+            "hair": "Włosy",
+            "skin": "Skóra"
+        },
+        "attributes": {
+            "strength": "Siła",
+            "constitution": "Budowa",
+            "dexterity": "Zręczność",
+            "intelligence": "Intelekt",
+            "wisdom": "Roztropność",
+            "charisma": "Charyzma"
+        }
     },
     "characterCreation": {
         "title": "Stwórz swoją postać",
-        "name": "Imię",
         "submit": "Stwórz postać"
     },
     "sessionCreation": {

@@ -10,6 +10,9 @@
                     <list-link :toName="'session/admin/editSessionDetails'" :toFallback="'session/admin'" :iconClass="'fa-pencil'">
                         {{ $t('admin.panel.editSessionDetails') }}
                     </list-link>
+                    <list-link :toName="'session/admin/editSessionDetails'" :toFallback="'session/admin'" :iconClass="'fa-pencil'">
+                        {{ $t('admin.panel.editSessionDetails') }}
+                    </list-link>
                     <a href="#" class="list-group-item list-group-item-action">
                         <i class="fa fa-key fa-fw"></i>&nbsp;{{ $t('admin.panel.modifyItems') }}
                     </a>

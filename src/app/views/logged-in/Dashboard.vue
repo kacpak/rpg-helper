@@ -8,7 +8,7 @@
             </router-link>
         </header>
 
-        <h3 v-text="$t('dashboard.activeSessions')"></h3>
+        <h3 v-text="$t('dashboard.activeSessions')" class="header"></h3>
         <div v-if="activeSessions.length" class="sessions-list row">
             <div v-for="session in activeSessions" class="col-md-3">
                 <session-card :session="session"></session-card>
@@ -17,7 +17,7 @@
         <p class="text-muted text-center p-3" v-text="$t('dashboard.noActiveSessions')" v-else></p>
 
         <div v-if="finishedSessions.length">
-            <h3 v-text="$t('dashboard.finishedSessions')"></h3>
+            <h3 v-text="$t('dashboard.finishedSessions')" class="header"></h3>
             <div class="sessions-list row">
                 <div v-for="session in finishedSessions" class="col-md-3">
                     <session-card :session="session"></session-card>
@@ -52,9 +52,7 @@
 <style lang="scss" scoped>
     @import "../../styles/_variables";
 
-    h3 {
-        padding: .5em 0;
-        margin-top: .5rem;
-        border-bottom: 1px solid $btn-secondary-border;
+    .header {
+        margin-bottom: 0;
     }
 </style>

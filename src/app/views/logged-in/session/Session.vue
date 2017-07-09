@@ -1,8 +1,11 @@
 <template>
     <div class="user-session">
         <div class="row">
-            <character :character="session.character" class="col-md-5"></character>
-            <chat :id="$route.params.id" class="col-md-7"></chat>
+            <character :character="session.character" class="col-md-6"></character>
+            <div class="chat-container col-md-6">
+                <h3 class="header" v-text="$t('admin.chat.title')"></h3>
+                <chat :id="$route.params.id"></chat>
+            </div>
         </div>
     </div>
 </template>
@@ -39,6 +42,6 @@
 </script>
 <style lang="scss">
     .chat {
-        height: 30em;
+        height: 25em;
     }
 </style>

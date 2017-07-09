@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="header flex-parted">
+        <div class="flex-parted">
             <h1 class="display-4"><router-link :to="{ name: 'home' }">RPG Helper</router-link></h1>
             <div class="welcome mb-2 mb-sm-0">
                 {{ $t('auth.welcome', { name: loggedInUser }) }}

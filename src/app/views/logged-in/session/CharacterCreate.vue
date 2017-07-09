@@ -1,20 +1,31 @@
 <template>
     <div class="create-character">
-        <h2 v-text="$t('characterCreation.title')"></h2>
+        <h2 v-text="$t('characterCreation.title')" class="header"></h2>
 
         <form @submit.prevent="onSubmit">
             <fieldset :disabled="inProgress">
-                <div class="form-group row" :class="{'has-danger': errors.has('name')}">
-                    <label for="name" class="col-sm-2 col-form-label" v-text="$t('characterCreation.name')"></label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" :placeholder="$t('characterCreation.name')"
-                               id="name" name="name"
-                               v-model="character.name" v-validate="'required'" v-focus>
-                        <div v-if="errors.has('name')" class="form-control-feedback" v-text="errors.first('name')"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 v-text="$t('characterCreation.basic.title')"></h4>
+                        <row name="name" :label="$t('character.basic.name')" v-model="character.name" validate="required" focused></row>
+                        <row name="race" :label="$t('character.basic.race')" v-model="character.race" validate="required"></row>
+                        <row name="character" :label="$t('character.basic.character')" v-model="character.character" validate="required"></row>
+                        <row name="deity" :label="$t('character.basic.deity')" v-model="character.deity" validate="required"></row>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 v-text="$t('characterCreation.appearance.title')"></h4>
+                        <row name="size" :label="$t('character.appearance.size')" v-model="character.size" validate="required"></row>
+                        <row name="age" :label="$t('character.appearance.age')" v-model="character.age" validate="required"></row>
+                        <row name="sex" :label="$t('character.appearance.sex')" v-model="character.sex" validate="required"></row>
+                        <row name="height" :label="$t('character.appearance.height')" v-model="character.height" validate="required"></row>
+                        <row name="weight" :label="$t('character.appearance.weight')" v-model="character.weight" validate="required"></row>
+                        <row name="eyes" :label="$t('character.appearance.eyes')" v-model="character.eyes" validate="required"></row>
+                        <row name="hair" :label="$t('character.appearance.hair')" v-model="character.hair" validate="required"></row>
+                        <row name="skin" :label="$t('character.appearance.skin')" v-model="character.skin" validate="required"></row>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="offset-sm-2 col-sm-10">
+                <div class="form-group">
+                    <div class="pull-right">
                         <button type="submit" class="btn btn-primary" :disabled="!isFormValid" v-text="$t('characterCreation.submit')"></button>
                     </div>
                 </div>
@@ -26,6 +37,7 @@
     import api from '../../../api/session.api';
     import store from '../../../store/index'
     import isFormValid from '../../../utils/mixins/isFormValid';
+    import FormGroupRow from '../../../components/FormGroupRow.vue';
 
     export default {
         async beforeRouteEnter(to, from, next) {
@@ -61,6 +73,9 @@
                 }
                 this.inProgress = false;
             }
+        },
+        components: {
+            row: FormGroupRow
         }
     }
 </script>

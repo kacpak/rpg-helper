@@ -40,11 +40,36 @@
             "Paralyzed",
             "Crippled",
             "Poisoned"
-        ]
+        ],
+        "basic": {
+            "title": "Basic",
+            "name": "Name",
+            "race": "Race",
+            "character": "Character",
+            "deity": "Deity"
+        },
+        "appearance": {
+            "title": "Appearance",
+            "size": "Size",
+            "age": "Age",
+            "sex": "Sex",
+            "height": "Height",
+            "weight": "Weight",
+            "eyes": "Eyes",
+            "hair": "Hair",
+            "skin": "Skin"
+        },
+        "attributes": {
+            "strength": "Strength",
+            "constitution": "Constitution",
+            "dexterity": "Dexterity",
+            "intelligence": "Intelligence",
+            "wisdom": "Wisdom",
+            "charisma": "Charisma"
+        }
     },
     "characterCreation": {
         "title": "Create your Character",
-        "name": "Name",
         "submit": "Create"
     },
     "sessionCreation": {

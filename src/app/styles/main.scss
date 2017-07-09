@@ -24,3 +24,9 @@ h1 a {
         margin-left: auto;
     }
 }
+
+.header {
+    padding: .5em 0;
+    margin-bottom: .5em;
+    border-bottom: 1px solid $btn-secondary-border;
+}
