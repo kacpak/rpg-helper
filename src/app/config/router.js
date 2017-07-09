@@ -21,33 +21,32 @@ import store from '../store/index';
 
 Vue.use(VueRouter);
 
-export default new VueRouter({
+const router = new VueRouter({
     mode: 'history',
     routes: [
         {
             path: '/', component: AuthorizedContainer,
-            async beforeEnter(to, from, next) {
-                if (store.state.account.user === null) {
-                    const user = await store.dispatch('authenticate');
-                    if (!user) {
-                        return next({ name: 'login' });
-                    }
-                }
-                return next();
-            },
+            meta: { requiresAuth: true },
             children: [
-                { path: '', component: Dashboard, name: 'home' },
-                { path: 'session/create', component: SessionCreate, name: 'session/create' },
+                { name: 'home', path: '', component: Dashboard },
+                { name: 'session/create', path: 'session/create', component: SessionCreate },
                 {
                     path: 'session/:id', component: SessionContainer,
                     children: [
-                        { path: '', component: Session, name: 'session' },
-                        { path: 'init', component: SessionCharacterCreate, name: 'session/character/create' },
                         {
-                            path: 'admin', component: SessionGameMaster, name: 'session/admin',
+                            name: 'session', path: '',
+                            component: Session
+                        },
+                        {
+                            name: 'session/character/create', path: 'init',
+                            component: SessionCharacterCreate,
+                        },
+                        {
+                            name: 'session/admin', path: 'admin',
+                            component: SessionGameMaster,
                             children: [
-                                { path: 'invite', component: SessionInvite, name: 'session/admin/invite' },
-                                { path: 'editSessionDetails', component: SessionDetails, name: 'session/admin/editSessionDetails' }
+                                { name: 'session/admin/invite', path: 'invite', component: SessionInvite },
+                                { name: 'session/admin/editSessionDetails', path: 'editSessionDetails', component: SessionDetails }
                             ]
                         }
                     ]
@@ -65,3 +64,18 @@ export default new VueRouter({
         { path: '*', redirect: '/' }
     ]
 });
+
+router.beforeEach(async (to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (store.state.account.user === null) {
+            const user = await store.dispatch('authenticate');
+            if (!user) {
+                return next({ name: 'login' });
+            }
+        }
+    }
+
+    next();
+});
+
+export default router;

@@ -25,11 +25,11 @@
             if (store.state.sessions.current.is_game_master) {
                 next({ name: 'session/admin' });
 
-                // If user character exists continue to this component
+            // If user character exists continue to this component
             } else if (store.state.sessions.current.character) {
                 next();
 
-                // If user character does not exits redirect to character creation
+            // If user character does not exits redirect to character creation
             } else {
                 next({ name: 'session/character/create', params: to.params });
             }
