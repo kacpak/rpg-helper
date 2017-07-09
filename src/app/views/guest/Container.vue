@@ -1,8 +1,6 @@
 <template>
     <div class="container">
-        <div class="header">
-            <h1 class="display-4"><router-link :to="{ name: 'home' }">RPG Helper</router-link></h1>
-        </div>
+        <h1 class="display-4"><router-link :to="{ name: 'home' }">RPG Helper</router-link></h1>
         <div class="card">
             <div class="card-header">
                 <ul class="nav nav-pills card-header-pills">
