@@ -42,14 +42,12 @@
             "Poisoned"
         ],
         "basic": {
-            "title": "Basic",
             "name": "Name",
             "race": "Race",
             "character": "Character",
             "deity": "Deity"
         },
         "appearance": {
-            "title": "Appearance",
             "size": "Size",
             "age": "Age",
             "sex": "Sex",
@@ -70,7 +68,9 @@
     },
     "characterCreation": {
         "title": "Create your Character",
-        "submit": "Create"
+        "submit": "Create",
+        "basic": "Basic",
+        "appearance": "Appearance"
     },
     "sessionCreation": {
         "title": "Create new session",

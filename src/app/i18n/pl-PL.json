@@ -70,7 +70,9 @@
     },
     "characterCreation": {
         "title": "Stwórz swoją postać",
-        "submit": "Stwórz postać"
+        "submit": "Stwórz postać",
+        "basic": "Podstawowe",
+        "appearance": "Wygląd"
     },
     "sessionCreation": {
         "title": "Utwórz nową sesję",

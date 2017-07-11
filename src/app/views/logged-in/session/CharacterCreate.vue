@@ -6,14 +6,14 @@
             <fieldset :disabled="inProgress">
                 <div class="row">
                     <div class="col-md-6">
-                        <h4 v-text="$t('characterCreation.basic.title')"></h4>
+                        <h4 v-text="$t('characterCreation.basic')"></h4>
                         <row name="name" :label="$t('character.basic.name')" v-model="character.name" validate="required" focused></row>
                         <row name="race" :label="$t('character.basic.race')" v-model="character.race" validate="required"></row>
                         <row name="character" :label="$t('character.basic.character')" v-model="character.character" validate="required"></row>
                         <row name="deity" :label="$t('character.basic.deity')" v-model="character.deity" validate="required"></row>
                     </div>
                     <div class="col-md-6">
-                        <h4 v-text="$t('characterCreation.appearance.title')"></h4>
+                        <h4 v-text="$t('characterCreation.appearance')"></h4>
                         <row name="size" :label="$t('character.appearance.size')" v-model="character.size" validate="required"></row>
                         <row name="age" :label="$t('character.appearance.age')" v-model="character.age" validate="required"></row>
                         <row name="sex" :label="$t('character.appearance.sex')" v-model="character.sex" validate="required"></row>
